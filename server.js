@@ -6,6 +6,8 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
+const os = require('os');
+const { handleSyncRoutes } = require('./scripts/sync_hub.js');
 
 const PORT = process.env.PORT || 8000;
 const PUBLIC_DIR = __dirname;
@@ -116,8 +118,27 @@ function sendCachedResponse(req, res, fileObj, isSw = false) {
   }
 }
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    return res.end();
+  }
+
+  // Rotas de Sincronização em Tempo Real (Cliente, Frentista, Proprietário)
+  if (req.url.startsWith('/api/sync/')) {
+    try {
+      const handled = await handleSyncRoutes(req, res);
+      if (handled) return;
+    } catch (err) {
+      console.error('[Sync Route Error]', err);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: err.message }));
+    }
+  }
 
   // API pública de configuração do Supabase (Apenas URL e Chave Anon pública)
   if (req.method === 'GET' && req.url === '/api/auth/config') {
@@ -246,10 +267,26 @@ function serveDiskFile(req, res, filePath) {
   });
 }
 
+function getLocalIp() {
+  try {
+    const nets = os.networkInterfaces();
+    for (const name of Object.keys(nets)) {
+      for (const net of nets[name]) {
+        if (net.family === 'IPv4' && !net.internal) {
+          return net.address;
+        }
+      }
+    }
+  } catch (e) {}
+  return 'localhost';
+}
+
 module.exports = server;
 
 if (require.main === module) {
-  server.listen(PORT, () => {
+  server.listen(PORT, '0.0.0.0', () => {
+    const localIp = getLocalIp();
     console.log(`[Clube Fidelidade] Rodando em http://localhost:${PORT}`);
+    console.log(`[Acesso no Celular/Wi-Fi] http://${localIp}:${PORT}`);
   });
 }
