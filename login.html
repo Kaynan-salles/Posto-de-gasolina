@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#150921">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="application-name" content="Grupo Oliveira">
+  <meta name="description" content="Entrar no Clube de Benefícios e Fidelidade do Grupo Oliveira. Acesso para Proprietário, Frentista e Cliente.">
+  <title>Entrar — Grupo Oliveira</title>
+
+  <link rel="icon" type="image/png" href="./assets/img/brand/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/img/brand/icon-192.png">
+  <link rel="manifest" href="./manifest.json">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <style>
+    body.auth-page {
+      background: radial-gradient(circle at 50% 0%, #30174c 0%, #150921 60%, #0a0312 100%);
+      color: #ffffff;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 440px;
+      padding: 24px 20px;
+      box-sizing: border-box;
+    }
+
+    .auth-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(86, 47, 130, 0.2);
+    }
+
+    .auth-logo-wrap {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .auth-logo {
+      width: 86px;
+      height: 86px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.55));
+      border: none;
+      background: transparent;
+      display: inline-block;
+    }
+
+    .auth-title {
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-size: 24px;
+      font-weight: 800;
+      text-align: center;
+      margin: 0 0 6px;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+    }
+
+    .auth-subtitle {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      margin: 0 0 24px;
+    }
+
+    /* Seletor Rápido de Demonstração para Apresentação */
+    .demo-selector-box {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 22px;
+    }
+
+    .demo-selector-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .demo-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .demo-pill-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      color: #ffffff;
+      padding: 8px 4px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .demo-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .demo-pill-btn.active {
+      background: linear-gradient(135deg, #0082ca 0%, #0369a1 100%);
+      border-color: #38bdf8;
+      box-shadow: 0 4px 12px rgba(0, 130, 202, 0.4);
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .auth-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 13px 14px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      box-sizing: border-box;
+      transition: all 0.2s;
+    }
+
+    .auth-input:focus {
+      border-color: #38bdf8;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+
+    .auth-input.has-toggle {
+      padding-right: 44px;
+    }
+
+    .password-toggle-btn {
+      position: absolute;
+      right: 10px;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: color 0.2s;
+    }
+
+    .password-toggle-btn:hover {
+      color: #ffffff;
+    }
+
+    .auth-extras {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      font-size: 12px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+
+    .btn-auth-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #0082ca 0%, #562f82 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 10px 24px rgba(0, 130, 202, 0.35);
+      transition: all 0.2s ease;
+    }
+
+    .btn-auth-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(0, 130, 202, 0.45);
+    }
+
+    .btn-auth-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .auth-alert {
+      display: none;
+      background: rgba(220, 38, 38, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+
+    .auth-alert.success {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .auth-footer a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Modal de Recuperação de Senha */
+    .reset-card {
+      display: none;
+      margin-top: 16px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="auth-page">
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-logo-wrap">
+        <img src="./Logotipo do aplicativo.png" alt="Grupo Oliveira" class="auth-logo" onerror="this.src='./assets/img/brand/icon-192.png'">
+      </div>
+
+      <h1 class="auth-title">Grupo Oliveira</h1>
+      <p class="auth-subtitle">Acesso ao Clube de Vantagens e Painéis</p>
+
+      <!-- SELETOR RÁPIDO DE DEMONSTRAÇÃO (Para a Apresentação à Cliente) -->
+      <div class="demo-selector-box">
+        <div class="demo-selector-title">
+          <span>Contas de Demonstração</span>
+          <span style="font-size:10px;color:rgba(255,255,255,0.6);font-weight:500">1-clique para preencher</span>
+        </div>
+        <div class="demo-pills">
+          <button type="button" class="demo-pill-btn" data-role="owner" onclick="selectDemoAccount('owner', this)">
+            <span style="font-size:14px">🏢</span>
+            <span>Proprietário</span>
+          </button>
+          <button type="button" class="demo-pill-btn" data-role="attendant" onclick="selectDemoAccount('attendant', this)">
+            <span style="font-size:14px">⛽</span>
+            <span>Frentista</span>
+          </button>
+          <button type="button" class="demo-pill-btn active" data-role="customer" onclick="selectDemoAccount('customer', this)">
+            <span style="font-size:14px">👤</span>
+            <span>Cliente</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ALERTA DE FEEDBACK -->
+      <div id="auth-alert" class="auth-alert" role="alert"></div>
+
+      <!-- FORMULÁRIO DE LOGIN -->
+      <form id="form-login" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="login-email" class="form-label">E-mail</label>
+          <div class="input-wrapper">
+            <input type="email" id="login-email" name="email" required class="auth-input" placeholder="seuemail@grupooliveira.com.br" autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="login-password" class="form-label">Senha de Acesso</label>
+          <div class="input-wrapper">
+            <input type="password" id="login-password" name="password" required minlength="8" class="auth-input has-toggle" placeholder="Mínimo de 8 caracteres" autocomplete="current-password">
+            <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('login-password', this)" aria-label="Mostrar ou ocultar senha">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-extras">
+          <label class="checkbox-label">
+            <input type="checkbox" id="remember-me" checked>
+            <span>Lembrar meu acesso</span>
+          </label>
+          <a href="javascript:void(0)" onclick="togglePasswordResetCard()" class="forgot-link">Esqueci minha senha</a>
+        </div>
+
+        <button type="submit" id="btn-submit" class="btn-auth-submit">
+          <span>ENTRAR NO SISTEMA</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </form>
+
+      <!-- SEÇÃO EXPANSÍVEL DE RECUPERAÇÃO DE SENHA -->
+      <div id="reset-card" class="reset-card">
+        <h3 style="font-size:14px;font-weight:700;margin:0 0 6px;color:#38bdf8">Recuperação de Senha</h3>
+        <p style="font-size:11.5px;color:rgba(255,255,255,0.7);margin:0 0 12px">
+          Informe seu e-mail cadastrado para receber o link seguro de redefinição de senha pelo Supabase Auth.
+        </p>
+        <div class="form-group" style="margin-bottom:12px">
+          <input type="email" id="reset-email" class="auth-input" placeholder="seuemail@exemplo.com">
+        </div>
+        <div style="display:flex;gap:8px">
+          <button type="button" class="demo-pill-btn" onclick="togglePasswordResetCard()" style="flex:1">Cancelar</button>
+          <button type="button" class="btn-auth-submit" onclick="handlePasswordReset()" style="flex:2;padding:10px;font-size:13px">
+            Enviar Link
+          </button>
+        </div>
+      </div>
+
+      <div class="auth-footer">
+        Ainda não tem conta no Clube?
+        <a href="/cadastro">Cadastre-se agora</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUPABASE JS BUNDLE -->
+  <script src="./assets/js/supabase.js"></script>
+
+  <script>
+    // DADOS DAS 3 CONTAS PERMANENTES DE DEMONSTRAÇÃO
+    const DEMO_ACCOUNTS = {
+      owner: {
+        email: 'proprietario@grupooliveira.com.br',
+        password: 'Oliveira@2026!',
+        role: 'owner',
+        name: 'Roberto Oliveira',
+        redirect: '/?role=owner'
+      },
+      attendant: {
+        email: 'frentista@grupooliveira.com.br',
+        password: 'Oliveira@2026!',
+        role: 'attendant',
+        name: 'Carlos Silva',
+        redirect: '/?role=attendant'
+      },
+      customer: {
+        email: 'cliente@grupooliveira.com.br',
+        password: 'Oliveira@2026!',
+        role: 'customer',
+        name: 'Kaynã Viana',
+        redirect: '/?role=customer'
+      }
+    };
+
+    let supabaseClient = null;
+
+    // Inicialização do Supabase Client
+    async function initSupabase() {
+      try {
+        const res = await fetch('/api/auth/config');
+        if (res.ok) {
+          const config = await res.json();
+          if (config.supabaseUrl && config.supabaseAnonKey && typeof supabase !== 'undefined') {
+            supabaseClient = supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
+            console.log('[Supabase Auth] Conectado ao projeto:', config.supabaseUrl);
+          }
+        }
+      } catch (e) {
+        console.warn('[Supabase Auth] Modo autônomo / fallback ativo:', e.message);
+      }
+    }
+
+    initSupabase();
+
+    // Seleção de Conta Demo em 1-clique (perfeito para apresentação ao cliente)
+    function selectDemoAccount(role, btnEl) {
+      document.querySelectorAll('.demo-pill-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnEl) {
+        btnEl.classList.add('active');
+      } else {
+        const target = document.querySelector(`.demo-pill-btn[data-role="${role}"]`);
+        if (target) target.classList.add('active');
+      }
+
+      const acc = DEMO_ACCOUNTS[role];
+      if (acc) {
+        document.getElementById('login-email').value = acc.email;
+        document.getElementById('login-password').value = acc.password;
+        showAlert(`Perfil <b>${acc.name} (${role.toUpperCase()})</b> selecionado. Clique em "ENTRAR NO SISTEMA".`, 'success');
+      }
+    }
+
+    // Toggle de Mostrar/Ocultar Senha
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+
+      btn.innerHTML = isPassword
+        ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`
+        : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+    }
+
+    function showAlert(message, type = 'error') {
+      const alertBox = document.getElementById('auth-alert');
+      alertBox.className = 'auth-alert' + (type === 'success' ? ' success' : '');
+      alertBox.innerHTML = message;
+      alertBox.style.display = 'block';
+    }
+
+    function hideAlert() {
+      document.getElementById('auth-alert').style.display = 'none';
+    }
+
+    function togglePasswordResetCard() {
+      const card = document.getElementById('reset-card');
+      const isVisible = card.style.display === 'block';
+      card.style.display = isVisible ? 'none' : 'block';
+      if (!isVisible) {
+        document.getElementById('reset-email').value = document.getElementById('login-email').value;
+      }
+    }
+
+    // Processamento do Login com Supabase Auth
+    async function handleLogin(e) {
+      e.preventDefault();
+      hideAlert();
+
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const submitBtn = document.getElementById('btn-submit');
+
+      if (password.length < 8) {
+        showAlert('A senha deve conter no mínimo 8 caracteres.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<div class="spinner"></div><span>Autenticando...</span>`;
+
+      try {
+        let authSuccess = false;
+        let userRole = 'customer';
+        let userName = email.split('@')[0];
+
+        // 1. Tentar autenticação real no Supabase Auth se cliente configurado
+        if (supabaseClient) {
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+
+          if (error) {
+            // Se erro de credenciais no Supabase, verificar se é uma das contas de demo locais
+            const demoMatch = Object.values(DEMO_ACCOUNTS).find(
+              d => d.email.toLowerCase() === email.toLowerCase() && d.password === password
+            );
+
+            if (demoMatch) {
+              console.log('[Auth] Autenticado via perfil de demonstração local.');
+              userRole = demoMatch.role;
+              userName = demoMatch.name;
+              authSuccess = true;
+            } else {
+              throw error;
+            }
+          } else if (data && data.user) {
+            authSuccess = true;
+            // Identificar perfil pelo metadado ou usuarios_perfis
+            const metaRole = data.user.user_metadata?.role;
+            if (metaRole) {
+              userRole = metaRole;
+            } else {
+              // Buscar perfil no banco
+              const { data: prof } = await supabaseClient
+                .from('usuarios_perfis')
+                .select('role, nome')
+                .eq('id', data.user.id)
+                .single();
+              if (prof && prof.role) {
+                userRole = prof.role;
+                userName = prof.nome || userName;
+              }
+            }
+          }
+        } else {
+          // Fallback autônomo (quando chaves do Supabase ainda não foram coladas no .env)
+          const demoMatch = Object.values(DEMO_ACCOUNTS).find(
+            d => d.email.toLowerCase() === email.toLowerCase() && d.password === password
+          );
+
+          if (demoMatch) {
+            authSuccess = true;
+            userRole = demoMatch.role;
+            userName = demoMatch.name;
+          } else {
+            // Verificar clientes cadastrados no localStorage
+            const savedState = JSON.parse(localStorage.getItem('grupo-oliveira-fidelidade-v2') || '{}');
+            const foundClient = (savedState.registeredClients || []).find(
+              c => c.email && c.email.toLowerCase() === email.toLowerCase()
+            );
+
+            if (foundClient) {
+              authSuccess = true;
+              userRole = 'customer';
+              userName = foundClient.name;
+            } else {
+              throw new Error('E-mail ou senha incorretos. Verifique suas credenciais.');
+            }
+          }
+        }
+
+        if (authSuccess) {
+          // Atualizar estado da sessão ativa
+          const savedState = JSON.parse(localStorage.getItem('grupo-oliveira-fidelidade-v2') || '{}');
+          savedState.currentRole = userRole;
+          savedState.authSession = {
+            authenticated: true,
+            email: email,
+            role: userRole,
+            name: userName,
+            loginAt: new Date().toISOString()
+          };
+
+          if (userRole === 'customer') {
+            savedState.name = userName;
+          }
+
+          localStorage.setItem('grupo-oliveira-fidelidade-v2', JSON.stringify(savedState));
+          localStorage.setItem('go_current_role', userRole);
+
+          showAlert(`Autenticado com sucesso! Redirecionando para o painel de <b>${userRole.toUpperCase()}</b>...`, 'success');
+
+          // Redirecionamento automático conforme perfil (Requisito 3 & 4)
+          setTimeout(() => {
+            if (userRole === 'owner') {
+              window.location.href = '/?role=owner';
+            } else if (userRole === 'attendant') {
+              window.location.href = '/?role=attendant';
+            } else {
+              window.location.href = '/?role=customer';
+            }
+          }, 600);
+        }
+      } catch (err) {
+        console.error('[Login Error]', err);
+        let errorMsg = 'E-mail ou senha incorretos.';
+        if (err.message && err.message.includes('Invalid login credentials')) {
+          errorMsg = 'E-mail ou senha inválidos. Verifique os dados ou utilize uma das contas de teste acima.';
+        } else if (err.message) {
+          errorMsg = err.message;
+        }
+        showAlert(errorMsg, 'error');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>ENTRAR NO SISTEMA</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>`;
+      }
+    }
+
+    // Recuperação de Senha por E-mail via Supabase Auth
+    async function handlePasswordReset() {
+      const email = document.getElementById('reset-email').value.trim();
+      if (!email) {
+        showAlert('Por favor, informe seu e-mail para recuperar a senha.');
+        return;
+      }
+
+      try {
+        if (supabaseClient) {
+          const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+            redirectTo: window.location.origin + '/recuperar-senha'
+          });
+          if (error) throw error;
+        }
+        showAlert(`Link de recuperação enviado com sucesso para <b>${email}</b>! Verifique sua caixa de entrada.`, 'success');
+        document.getElementById('reset-card').style.display = 'none';
+      } catch (err) {
+        showAlert(`Erro ao enviar recuperação: ${err.message}`, 'error');
+      }
+    }
+
+    // Inicialização: pré-selecionar cliente como padrão
+    window.addEventListener('DOMContentLoaded', () => {
+      selectDemoAccount('customer');
+    });
+  </script>
+</body>
+</html>

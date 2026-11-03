@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#562F82">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="application-name" content="Grupo Oliveira">
+  <meta name="apple-mobile-web-app-title" content="Grupo Oliveira">
+  <title>Instalar Aplicativo — Grupo Oliveira</title>
+  
+  <link rel="icon" type="image/png" href="./assets/img/brand/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/img/brand/icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="./assets/img/brand/icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="./assets/img/brand/icon-512.png">
+  <link rel="manifest" href="./manifest.json">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <style>
+    /* Estilos Exclusivos da Página de Instalação PWA */
+    body.install-page-body {
+      background: radial-gradient(circle at 50% 0%, #30174c 0%, #150921 55%, #0d0416 100%);
+      color: #ffffff;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .install-viewport-container {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      padding: 24px 20px 40px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .install-header {
+      text-align: center;
+      padding-top: 12px;
+    }
+
+    .install-logo-wrap {
+      margin-bottom: 16px;
+    }
+
+    .install-brand-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+    }
+
+    .install-station-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fde68a;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .install-title {
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-size: 25px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 70%, #93c5fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .install-subtitle {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: #cbd5e1;
+      margin: 0 0 22px;
+    }
+
+    .install-app-preview-card {
+      background: linear-gradient(145deg, rgba(86, 47, 130, 0.45) 0%, rgba(20, 10, 32, 0.75) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 20px;
+      padding: 18px 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      margin-bottom: 22px;
+    }
+
+    .install-app-identity-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .install-app-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.4));
+      border: none;
+      flex-shrink: 0;
+    }
+
+    .install-app-meta h3 {
+      margin: 0 0 4px;
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-size: 17px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .install-app-meta p {
+      margin: 0;
+      font-size: 11.5px;
+      color: #94a3b8;
+    }
+
+    .install-app-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #fbbf24;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    .install-benefits-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .install-benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12.5px;
+      color: #e2e8f0;
+    }
+
+    .install-benefit-icon-badge {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .install-benefit-icon-badge.purple {
+      background: rgba(168, 85, 247, 0.25);
+      color: #d8b4fe;
+    }
+
+    .install-benefit-icon-badge.blue {
+      background: rgba(56, 189, 248, 0.25);
+      color: #7dd3fc;
+    }
+
+    .install-benefit-icon-badge.green {
+      background: rgba(34, 197, 94, 0.25);
+      color: #86efac;
+    }
+
+    .install-benefit-icon-badge.gold {
+      background: rgba(250, 204, 21, 0.25);
+      color: #fde047;
+    }
+
+    /* Ações */
+    .install-actions-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .btn-install-primary {
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #0082CA 0%, #562F82 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(0, 130, 202, 0.35);
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-install-primary:active {
+      transform: scale(0.98);
+      filter: brightness(0.95);
+    }
+
+    .btn-browser-secondary {
+      width: 100%;
+      padding: 13px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    .btn-browser-secondary:hover,
+    .btn-browser-secondary:active {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    /* Modal / Instruções iOS e Android */
+    .install-guide-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(9, 4, 15, 0.9);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 99999;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .install-guide-modal.active {
+      display: flex !important;
+      animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalSlideUp {
+      from { opacity: 0; transform: translateY(60px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .install-guide-card {
+      width: 100%;
+      max-width: 480px;
+      background: #1c0e2c;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      border-radius: 24px 24px 0 0;
+      padding: 24px 20px 32px;
+      box-sizing: border-box;
+      color: #ffffff;
+    }
+
+    .guide-step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .guide-step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #562F82;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .guide-step-content b {
+      color: #fde68a;
+    }
+
+    .guide-step-content p {
+      margin: 2px 0 0;
+      font-size: 13px;
+      color: #e2e8f0;
+      line-height: 1.45;
+    }
+
+    .ios-share-icon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      padding: 2px 6px;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="install-page-body">
+  <div class="install-viewport-container">
+    
+    <!-- Top Header -->
+    <header class="install-header">
+      <div class="install-logo-wrap">
+        <img src="assets/img/brand/clean_logo_white.png" class="install-brand-logo" alt="Grupo Oliveira">
+      </div>
+
+      <!-- Badge de Origem Validada do Posto (Requisitos 1 & 2) -->
+      <div id="station-badge-container" class="install-station-badge">
+        <span>📍</span>
+        <span id="station-name-text">Rede Grupo Oliveira</span>
+      </div>
+
+      <h1 class="install-title">Tenha o Grupo Oliveira no seu celular</h1>
+      <p class="install-subtitle">
+        Abasteça com cashback exclusivo, acesse seu cartão digital instantâneo e aproveite todos os benefícios em qualquer um dos 6 postos da rede.
+      </p>
+    </header>
+
+    <!-- App Identity & Benefits Card -->
+    <section class="install-app-preview-card">
+      <div class="install-app-identity-row">
+        <img src="assets/img/brand/icon-192.png" class="install-app-icon" alt="Ícone Grupo Oliveira">
+        <div class="install-app-meta">
+          <h3>Clube Grupo Oliveira</h3>
+          <p>Fidelidade & Abastecimento Oficial</p>
+          <div class="install-app-rating">
+            <span>★★★★★</span>
+            <span style="color:#cbd5e1;font-size:10.5px">(4.9 • Clube VIP)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Benefícios Oficiais do Clube -->
+      <div class="install-benefits-list">
+        <div class="install-benefit-item">
+          <div class="install-benefit-icon-badge purple">💰</div>
+          <div>
+            <b>3% de Cashback Automático</b>
+            <div style="font-size:11.5px;color:#94a3b8">Saldo direto na sua carteira a cada abastecimento.</div>
+          </div>
+        </div>
+
+        <div class="install-benefit-item">
+          <div class="install-benefit-icon-badge blue">💳</div>
+          <div>
+            <b>Cartão Digital & QR Code</b>
+            <div style="font-size:11.5px;color:#94a3b8">Acesso imediato mesmo sem conexão de internet.</div>
+          </div>
+        </div>
+
+        <div class="install-benefit-item">
+          <div class="install-benefit-icon-badge green">⛽</div>
+          <div>
+            <b>6 Postos Integrados</b>
+            <div style="font-size:11.5px;color:#94a3b8">Parintins, Barreirinha, Nhamundá e Terra Santa.</div>
+          </div>
+        </div>
+
+        <div class="install-benefit-item">
+          <div class="install-benefit-icon-badge gold">⚡</div>
+          <div>
+            <b>Acesso Instantâneo</b>
+            <div style="font-size:11.5px;color:#94a3b8">Ícone na sua tela inicial sem ocupar espaço na memória.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Botões de Ação (Requisito 2) -->
+    <div class="install-actions-wrap">
+      <button type="button" id="btn-install-app" class="btn-install-primary" onclick="handleInstallClick()">
+        <svg style="width:20px;height:20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span id="btn-install-label">INSTALAR APLICATIVO</span>
+      </button>
+
+      <a id="btn-continue-browser" href="/cadastro" class="btn-browser-secondary">
+        <span>Continuar pelo navegador</span>
+        <span>→</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Modal de Guia de Instalação para iPhone / Safari (Requisito 4) -->
+  <div id="ios-guide-modal" class="install-guide-modal" onclick="closeGuideModal(event)">
+    <div class="install-guide-card" onclick="event.stopPropagation()">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <h3 style="margin:0;font-family:var(--font-heading);font-size:18px;font-weight:800;color:#ffffff">
+          Como instalar no iPhone 🍏
+        </h3>
+        <button type="button" onclick="closeGuideModal()" style="background:none;border:none;color:#94a3b8;font-size:20px;cursor:pointer">✕</button>
+      </div>
+
+      <div class="guide-step-row">
+        <div class="guide-step-number">1</div>
+        <div class="guide-step-content">
+          <p>No navegador Safari, toque no botão <b>Compartilhar</b> <span class="ios-share-icon-badge">⎋</span> (ícone com quadrado e seta para cima na barra inferior).</p>
+        </div>
+      </div>
+
+      <div class="guide-step-row">
+        <div class="guide-step-number">2</div>
+        <div class="guide-step-content">
+          <p>Role para baixo nas opções e toque em <b>"Adicionar à Tela de Início"</b> <span class="ios-share-icon-badge">＋</span>.</p>
+        </div>
+      </div>
+
+      <div class="guide-step-row">
+        <div class="guide-step-number">3</div>
+        <div class="guide-step-content">
+          <p>Confirme tocando em <b>"Adicionar"</b> no canto superior direito.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:20px">
+        <a id="ios-continue-link" href="/cadastro" class="btn-install-primary" style="padding:14px;font-size:15px;text-align:center">
+          Entendi, Abrir Aplicativo
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Guia de Instalação Manual para Android / Chrome (Requisito 3) -->
+  <div id="android-guide-modal" class="install-guide-modal" onclick="closeGuideModal(event)">
+    <div class="install-guide-card" onclick="event.stopPropagation()">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <h3 style="margin:0;font-family:var(--font-heading);font-size:18px;font-weight:800;color:#ffffff">
+          Adicionar à Tela Inicial 📱
+        </h3>
+        <button type="button" onclick="closeGuideModal()" style="background:none;border:none;color:#94a3b8;font-size:20px;cursor:pointer">✕</button>
+      </div>
+
+      <div class="guide-step-row">
+        <div class="guide-step-number">1</div>
+        <div class="guide-step-content">
+          <p>Toque no menu de <b>três pontinhos (⋮)</b> no canto superior direito do seu navegador Chrome.</p>
+        </div>
+      </div>
+
+      <div class="guide-step-row">
+        <div class="guide-step-number">2</div>
+        <div class="guide-step-content">
+          <p>Selecione a opção <b>"Instalar aplicativo"</b> ou <b>"Adicionar à tela inicial"</b>.</p>
+        </div>
+      </div>
+
+      <div class="guide-step-row">
+        <div class="guide-step-number">3</div>
+        <div class="guide-step-content">
+          <p>Toque em <b>"Instalar"</b> para fixar o ícone oficial do Grupo Oliveira.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:20px">
+        <a id="android-continue-link" href="/cadastro" class="btn-install-primary" style="padding:14px;font-size:15px;text-align:center">
+          Continuar para o Aplicativo
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mapeamento Oficial das 6 Unidades do Grupo Oliveira
+    const STATIONS = [
+      { id: 'matriz-parintins', name: 'Posto Marcos Zagury (Matriz)', city: 'Parintins - AM' },
+      { id: 'posto-barreirinha', name: 'Posto Grupo Oliveira Barreirinha', city: 'Barreirinha - AM' },
+      { id: 'posto-nhamunda', name: 'Posto Grupo Oliveira Nhamundá', city: 'Nhamundá - AM' },
+      { id: 'posto-terrasanta', name: 'Posto Grupo Oliveira Terra Santa', city: 'Terra Santa - PA' },
+      { id: 'posto-fluvial', name: 'Posto Fluvial Grupo Oliveira', city: 'Parintins - AM' },
+      { id: 'posto-express', name: 'Posto Grupo Oliveira Express', city: 'Parintins - AM' }
+    ];
+
+    const ALIASES = {
+      'posto-01': 'matriz-parintins', 'posto-1': 'matriz-parintins', 'matriz': 'matriz-parintins',
+      'posto-02': 'posto-barreirinha', 'posto-2': 'posto-barreirinha', 'barreirinha': 'posto-barreirinha',
+      'posto-03': 'posto-nhamunda', 'posto-3': 'posto-nhamunda', 'nhamunda': 'posto-nhamunda',
+      'posto-04': 'posto-terrasanta', 'posto-4': 'posto-terrasanta', 'terrasanta': 'posto-terrasanta',
+      'posto-05': 'posto-fluvial', 'posto-5': 'posto-fluvial', 'fluvial': 'posto-fluvial',
+      'posto-06': 'posto-express', 'posto-6': 'posto-express', 'express': 'posto-express'
+    };
+
+    function resolveStation(ref) {
+      if (!ref) return null;
+      const clean = String(ref).trim().toLowerCase();
+      const realId = ALIASES[clean] || clean;
+      return STATIONS.find(s => s.id === realId) || null;
+    }
+
+    // Variáveis PWA
+    let deferredPrompt = null;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+    // Leitura e Preservação de Origem (Requisitos 1 & 6)
+    const urlParams = new URLSearchParams(window.location.search);
+    const refParam = urlParams.get('ref') || urlParams.get('posto') || urlParams.get('r');
+    const station = resolveStation(refParam);
+
+    if (station) {
+      // Salva origem tanto no localStorage quanto no sessionStorage para garantir persistência no PWA instalado
+      try {
+        localStorage.setItem('go_install_origin_id', station.id);
+        localStorage.setItem('go_install_origin_name', station.name);
+        localStorage.setItem('go_install_origin_city', station.city);
+        localStorage.setItem('go_install_timestamp', new Date().toISOString());
+        sessionStorage.setItem('go_install_ref', refParam);
+      } catch (e) {}
+
+      document.getElementById('station-name-text').textContent = `${station.name} • ${station.city}`;
+    }
+
+    // Abertura direta via parâmetro de teste ou deep link
+    if (urlParams.get('guide') === 'ios' || urlParams.get('ios') === '1') {
+      setTimeout(() => {
+        document.getElementById('ios-guide-modal').classList.add('active');
+      }, 100);
+    } else if (urlParams.get('guide') === 'android' || urlParams.get('android') === '1') {
+      setTimeout(() => {
+        document.getElementById('android-guide-modal').classList.add('active');
+      }, 100);
+    }
+
+    // Atualizar links para preservar o parâmetro do posto
+    const targetUrl = station ? `/cadastro?ref=${encodeURIComponent(station.id)}` : '/cadastro';
+    document.getElementById('btn-continue-browser').href = targetUrl;
+    document.getElementById('ios-continue-link').href = targetUrl;
+    document.getElementById('android-continue-link').href = targetUrl;
+
+    // Se o aplicativo já estiver em modo standalone instalado (Requisito 9)
+    if (isStandalone) {
+      document.getElementById('btn-install-label').textContent = 'ABRIR APLICATIVO';
+      document.getElementById('btn-install-app').onclick = () => {
+        window.location.href = targetUrl;
+      };
+    }
+
+    // Captura do Evento PWA Android (Requisito 3)
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btn = document.getElementById('btn-install-app');
+      btn.classList.add('pulse-ready');
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredPrompt = null;
+      document.getElementById('btn-install-label').textContent = 'ABRIR APLICATIVO INSTALADO';
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 1000);
+    });
+
+    function handleInstallClick() {
+      // 1. Se já está instalado standalone
+      if (isStandalone) {
+        window.location.href = targetUrl;
+        return;
+      }
+
+      // 2. Se temos o prompt nativo PWA pronto (Android / Chrome Desktop)
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('[PWA] Usuário aceitou instalação');
+          }
+          deferredPrompt = null;
+        });
+        return;
+      }
+
+      // 3. Se for iOS (iPhone/iPad) -> Abrir instruções oficiais Safari (Requisito 4)
+      if (isIOS) {
+        document.getElementById('ios-guide-modal').classList.add('active');
+        return;
+      }
+
+      // 4. Se for Android ou navegador sem suporte nativo imediato -> Abrir Guia Android
+      document.getElementById('android-guide-modal').classList.add('active');
+    }
+
+    function closeGuideModal(e) {
+      if (e && e.target !== e.currentTarget && !e.target.closest('button')) return;
+      document.getElementById('ios-guide-modal').classList.remove('active');
+      document.getElementById('android-guide-modal').classList.remove('active');
+    }
+
+    // Registro do Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.log('[SW] Registro em /instalar:', err.message);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

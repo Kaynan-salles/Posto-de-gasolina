@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#562F82">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="application-name" content="Grupo Oliveira">
+    <meta name="apple-mobile-web-app-title" content="Grupo Oliveira">
+    <title>Grupo Oliveira — Clube de Vantagens e Fidelidade</title>
+    <link rel="icon" type="image/png" href="./assets/img/brand/favicon.png">
+    <link rel="apple-touch-icon" href="./assets/img/brand/icon-192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="./assets/img/brand/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="./assets/img/brand/icon-512.png">
+    <link rel="manifest" href="./manifest.json">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+  </head>
+  <body>
+    <!-- App Container -->
+    <div class="app-viewport">
+      <main id="app-container">
+        <div id="view"></div>
+      </main>
+    </div>
+
+    <!-- Modals & Feedback -->
+    <dialog id="modal"></dialog>
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <script src="./assets/js/qrcode.min.js"></script>
+    <script src="./assets/js/jsqr.min.js"></script>
+    <script src="./assets/js/supabase.js"></script>
+    <script src="./assets/js/app.js?v=clean_real2"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(err => {
+            console.log('[PWA] SW register info:', err.message);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

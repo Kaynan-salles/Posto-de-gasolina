@@ -1,0 +1,24 @@
+{
+  "name": "clube-fidelidade-oliveira",
+  "version": "2.0.0",
+  "description": "Grupo Oliveira — Clube de Vantagens e Fidelidade (Mobile-First)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed-demo": "node scripts/provision_accounts.js"
+  },
+  "keywords": [
+    "grupo-oliveira",
+    "clube-de-vantagens",
+    "cashback",
+    "fidelidade",
+    "mobile-first"
+  ],
+  "author": "Grupo Oliveira",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
+    "dotenv": "^18.0.9",
+    "pg": "^8.23.1"
+  }
+}

@@ -1,0 +1,23 @@
+# Ambientes e caches
+node_modules/
+.env
+.env.local
+.env.*.local
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.playwright/
+
+# Arquivos de teste e rascunho
+scratch/
+test_*.py
+diagnose.py
+_BACKUP_POSTO_ANTIGO/
+POSTO-OLIVEIRA-main/
+POSTO/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini

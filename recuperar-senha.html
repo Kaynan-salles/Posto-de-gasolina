@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#150921">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="application-name" content="Grupo Oliveira">
+  <meta name="description" content="Recupere o acesso à sua conta do Clube Grupo Oliveira de forma rápida e segura.">
+  <title>Recuperar Senha — Grupo Oliveira</title>
+
+  <link rel="icon" type="image/png" href="./assets/img/brand/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/img/brand/icon-192.png">
+  <link rel="manifest" href="./manifest.json">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+
+  <style>
+    body.auth-page {
+      background: radial-gradient(circle at 50% 0%, #30174c 0%, #150921 60%, #0a0312 100%);
+      color: #ffffff;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 440px;
+      padding: 24px 20px;
+      box-sizing: border-box;
+    }
+
+    .auth-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(86, 47, 130, 0.2);
+    }
+
+    .auth-logo-wrap {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .auth-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.55));
+      border: none;
+      background: transparent;
+      display: inline-block;
+    }
+
+    .auth-title {
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      font-size: 24px;
+      font-weight: 800;
+      text-align: center;
+      margin: 0 0 6px;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+    }
+
+    .auth-subtitle {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      margin: 0 0 24px;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .auth-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 13px 14px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      box-sizing: border-box;
+      transition: all 0.2s;
+    }
+
+    .auth-input:focus {
+      border-color: #38bdf8;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+
+    .auth-input.has-toggle {
+      padding-right: 44px;
+    }
+
+    .password-toggle-btn {
+      position: absolute;
+      right: 10px;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: color 0.2s;
+    }
+
+    .password-toggle-btn:hover {
+      color: #ffffff;
+    }
+
+    .btn-auth-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #0082ca 0%, #562f82 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      font-family: var(--font-heading, 'Outfit', sans-serif);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 10px 24px rgba(0, 130, 202, 0.35);
+      transition: all 0.2s ease;
+      margin-top: 8px;
+    }
+
+    .btn-auth-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(0, 130, 202, 0.45);
+    }
+
+    .btn-auth-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .auth-alert {
+      display: none;
+      background: rgba(220, 38, 38, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+
+    .auth-alert.success {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .auth-footer a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body class="auth-page">
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-logo-wrap">
+        <img src="./Logotipo do aplicativo.png" alt="Grupo Oliveira" class="auth-logo"
+          onerror="this.src='./assets/img/brand/icon-192.png'">
+      </div>
+
+      <!-- ETAPA 1: SOLICITAR LINK POR EMAIL -->
+      <div id="step-request">
+        <h1 class="auth-title">Recuperar Senha</h1>
+        <p class="auth-subtitle">
+          Informe seu e-mail cadastrado. Enviaremos um link seguro pelo Supabase Auth para você redefinir sua senha.
+        </p>
+
+        <div id="auth-alert" class="auth-alert" role="alert"></div>
+
+        <form onsubmit="handleSendReset(event)">
+          <div class="form-group">
+            <label for="reset-email" class="form-label">E-mail Cadastrado</label>
+            <div class="input-wrapper">
+              <input type="email" id="reset-email" required class="auth-input" placeholder="seuemail@exemplo.com">
+            </div>
+          </div>
+
+          <button type="submit" id="btn-submit-reset" class="btn-auth-submit">
+            <span>ENVIAR LINK DE RECUPERAÇÃO</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- ETAPA 2: DEFINIR NOVA SENHA (ATIVADA QUANDO O USUÁRIO VEM DO LINK DO SUPABASE) -->
+      <div id="step-new-password" style="display:none">
+        <h1 class="auth-title">Nova Senha</h1>
+        <p class="auth-subtitle">
+          Crie uma nova senha segura para a sua conta no Grupo Oliveira.
+        </p>
+
+        <div id="auth-alert-new" class="auth-alert" role="alert"></div>
+
+        <form onsubmit="handleUpdatePassword(event)">
+          <div class="form-group">
+            <label for="new-pass" class="form-label">Criar Nova Senha *</label>
+            <div class="input-wrapper">
+              <input type="password" id="new-pass" required minlength="8" class="auth-input has-toggle"
+                placeholder="Mínimo de 8 caracteres" autocomplete="new-password">
+              <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('new-pass', this)"
+                aria-label="Mostrar ou ocultar senha">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirm-new-pass" class="form-label">Confirmar Nova Senha *</label>
+            <div class="input-wrapper">
+              <input type="password" id="confirm-new-pass" required minlength="8" class="auth-input has-toggle"
+                placeholder="Repita a nova senha" autocomplete="new-password">
+              <button type="button" class="password-toggle-btn"
+                onclick="togglePasswordVisibility('confirm-new-pass', this)" aria-label="Mostrar ou ocultar senha">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-submit-update" class="btn-auth-submit">
+            <span>ATUALIZAR SENHA</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="auth-footer">
+        Lembrou da senha?
+        <a href="/login">Voltar ao Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/js/supabase.js"></script>
+  <script>
+    let supabaseClient = null;
+
+    async function initSupabase() {
+      try {
+        const res = await fetch('/api/auth/config');
+        if (res.ok) {
+          const config = await res.json();
+          if (config.supabaseUrl && config.supabaseAnonKey && typeof supabase !== 'undefined') {
+            supabaseClient = supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
+          }
+        }
+      } catch (e) {
+        console.warn('[Supabase Auth] Fallback:', e.message);
+      }
+
+      // Detectar se veio por link de recuperação (#access_token=...&type=recovery)
+      const hash = window.location.hash;
+      if (hash && (hash.includes('type=recovery') || hash.includes('access_token='))) {
+        document.getElementById('step-request').style.display = 'none';
+        document.getElementById('step-new-password').style.display = 'block';
+      }
+    }
+
+    initSupabase();
+
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+
+      btn.innerHTML = isPassword
+        ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`
+        : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+    }
+
+    function showAlert(msg, type = 'error', alertId = 'auth-alert') {
+      const box = document.getElementById(alertId);
+      box.className = 'auth-alert' + (type === 'success' ? ' success' : '');
+      box.innerHTML = msg;
+      box.style.display = 'block';
+    }
+
+    async function handleSendReset(e) {
+      e.preventDefault();
+      const email = document.getElementById('reset-email').value.trim();
+      const btn = document.getElementById('btn-submit-reset');
+
+      btn.disabled = true;
+      btn.innerHTML = `<div class="spinner"></div><span>Enviando link...</span>`;
+
+      try {
+        if (supabaseClient) {
+          const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+            redirectTo: window.location.origin + '/recuperar-senha'
+          });
+          if (error) throw error;
+        }
+
+        showAlert(`✅ E-mail de recuperação enviado para <b>${email}</b>! Verifique sua caixa de entrada e spam.`, 'success');
+        btn.innerHTML = `<span>LINK ENVIADO</span>`;
+      } catch (err) {
+        showAlert(err.message || 'Erro ao enviar e-mail de recuperação.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = `<span>ENVIAR LINK DE RECUPERAÇÃO</span>`;
+      }
+    }
+
+    async function handleUpdatePassword(e) {
+      e.preventDefault();
+      const newPass = document.getElementById('new-pass').value;
+      const confirmNewPass = document.getElementById('confirm-new-pass').value;
+      const btn = document.getElementById('btn-submit-update');
+
+      if (newPass.length < 8) {
+        showAlert('A nova senha deve conter no mínimo 8 caracteres.', 'error', 'auth-alert-new');
+        return;
+      }
+
+      if (newPass !== confirmNewPass) {
+        showAlert('As senhas não coincidem. Digite a mesma senha em ambos os campos.', 'error', 'auth-alert-new');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = `<div class="spinner"></div><span>Atualizando Senha...</span>`;
+
+      try {
+        if (supabaseClient) {
+          const { error } = await supabaseClient.auth.updateUser({ password: newPass });
+          if (error) throw error;
+        }
+
+        showAlert(`🎉 Senha alterada com sucesso! Redirecionando para o login...`, 'success', 'auth-alert-new');
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 1200);
+      } catch (err) {
+        showAlert(err.message || 'Erro ao atualizar senha.', 'error', 'auth-alert-new');
+        btn.disabled = false;
+        btn.innerHTML = `<span>ATUALIZAR SENHA</span>`;
+      }
+    }
+  </script>
+</body>
+
+</html>
