@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "lastUpdated": "2026-11-03T23:48:51.544Z",
+  "lastUpdated": "2026-11-04T22:45:00.000Z",
   "customers": {
     "CLI-0824": {
       "id": "CLI-0824",
@@ -16,8 +16,8 @@
       "fills": [
         {
           "id": "GO-TX-99410",
-          "stationId": "matriz-parintins",
-          "station": "Posto Marcos Zagury (Matriz)",
+          "stationId": "posto-planetaboi",
+          "station": "Posto Oliveira Planeta Boi",
           "city": "Parintins - AM",
           "attendant": "Carlos Silva",
           "customerName": "Kaynã Viana",
@@ -31,14 +31,14 @@
           "cashbackEarned": 3,
           "pointsEarned": 100,
           "paymentMethod": "Cartão de Crédito",
-          "date": "2026-11-03",
+          "date": "2026-11-04",
           "time": "14:20",
           "status": "Concluído"
         },
         {
           "id": "GO-TX-88312",
-          "stationId": "posto-express",
-          "station": "Posto Grupo Oliveira Express",
+          "stationId": "posto-vilacristina",
+          "station": "Posto Oliveira — Vila Cristina",
           "city": "Parintins - AM",
           "attendant": "Lucas Mendes",
           "customerName": "Kaynã Viana",
@@ -52,7 +52,7 @@
           "cashbackEarned": 1.95,
           "pointsEarned": 65,
           "paymentMethod": "PIX",
-          "date": "2026-11-03",
+          "date": "2026-11-04",
           "time": "10:05",
           "status": "Concluído"
         }
@@ -65,8 +65,8 @@
       "id": "fc7afcfe-fcde-4250-8efe-520b3d455b02",
       "name": "Carlos Silva",
       "registration": "01",
-      "stationId": "matriz-parintins",
-      "stationName": "Posto Marcos Zagury (Matriz)",
+      "stationId": "posto-planetaboi",
+      "stationName": "Posto Oliveira Planeta Boi",
       "stationCity": "Parintins - AM",
       "todayStats": {
         "fillsCount": 16,
@@ -76,54 +76,54 @@
     }
   },
   "stations": {
-    "matriz-parintins": {
-      "id": "matriz-parintins",
-      "name": "Posto Marcos Zagury (Matriz)",
+    "posto-planetaboi": {
+      "id": "posto-planetaboi",
+      "name": "Posto Oliveira Planeta Boi",
       "city": "Parintins - AM",
       "revenue": 4250,
       "fills": 52,
       "cashbackUsed": 45,
       "cashbackEmitted": 127.5
     },
-    "posto-barreirinha": {
-      "id": "posto-barreirinha",
-      "name": "Posto Grupo Oliveira Barreirinha",
-      "city": "Barreirinha - AM",
+    "posto-uniao": {
+      "id": "posto-uniao",
+      "name": "Fábrica de Gelo e Posto União",
+      "city": "Parintins - AM",
       "revenue": 2450,
       "fills": 31,
       "cashbackUsed": 20,
       "cashbackEmitted": 73.5
     },
-    "posto-nhamunda": {
-      "id": "posto-nhamunda",
-      "name": "Posto Grupo Oliveira Nhamundá",
-      "city": "Nhamundá - AM",
+    "posto-ponte": {
+      "id": "posto-ponte",
+      "name": "Posto Oliveira Ponte",
+      "city": "Parintins - AM",
       "revenue": 2180,
       "fills": 28,
       "cashbackUsed": 15,
       "cashbackEmitted": 65.4
     },
-    "posto-terrasanta": {
-      "id": "posto-terrasanta",
-      "name": "Posto Grupo Oliveira Terra Santa",
-      "city": "Terra Santa - PA",
+    "posto-sham": {
+      "id": "posto-sham",
+      "name": "Posto Oliveira Sham",
+      "city": "Parintins - AM",
       "revenue": 2890,
       "fills": 36,
       "cashbackUsed": 30,
       "cashbackEmitted": 86.7
     },
-    "posto-fluvial": {
-      "id": "posto-fluvial",
-      "name": "Posto Fluvial Grupo Oliveira",
+    "posto-francesa": {
+      "id": "posto-francesa",
+      "name": "Posto Oliveira Francesa",
       "city": "Parintins - AM",
       "revenue": 3650,
       "fills": 22,
       "cashbackUsed": 35,
       "cashbackEmitted": 109.5
     },
-    "posto-express": {
-      "id": "posto-express",
-      "name": "Posto Grupo Oliveira Express",
+    "posto-vilacristina": {
+      "id": "posto-vilacristina",
+      "name": "Posto Oliveira — Vila Cristina",
       "city": "Parintins - AM",
       "revenue": 1980,
       "fills": 38,
@@ -134,8 +134,8 @@
   "recentTransactions": [
     {
       "id": "GO-TX-99410",
-      "stationId": "matriz-parintins",
-      "station": "Posto Marcos Zagury (Matriz)",
+      "stationId": "posto-planetaboi",
+      "station": "Posto Oliveira Planeta Boi",
       "customer": "Kaynã Viana",
       "fuel": "Gasolina Aditivada",
       "liters": 14.73,
@@ -146,8 +146,8 @@
     },
     {
       "id": "GO-TX-99388",
-      "stationId": "matriz-parintins",
-      "station": "Posto Marcos Zagury (Matriz)",
+      "stationId": "posto-planetaboi",
+      "station": "Posto Oliveira Planeta Boi",
       "customer": "Marcos Vinicius",
       "fuel": "Gasolina Comum",
       "liters": 22.76,
@@ -158,8 +158,8 @@
     },
     {
       "id": "GO-TX-99342",
-      "stationId": "posto-barreirinha",
-      "station": "Posto Grupo Oliveira Barreirinha",
+      "stationId": "posto-uniao",
+      "station": "Fábrica de Gelo e Posto União",
       "customer": "Renata Albuquerque",
       "fuel": "Diesel S10",
       "liters": 43.16,
@@ -170,8 +170,8 @@
     },
     {
       "id": "GO-TX-99301",
-      "stationId": "posto-nhamunda",
-      "station": "Posto Grupo Oliveira Nhamundá",
+      "stationId": "posto-ponte",
+      "station": "Posto Oliveira Ponte",
       "customer": "João Paulo Tavares",
       "fuel": "Gasolina Comum",
       "liters": 18.21,

@@ -34,21 +34,35 @@
       "purpose": "maskable"
     }
   ],
-  "categories": ["shopping", "finance", "lifestyle"],
+  "categories": [
+    "shopping",
+    "finance",
+    "lifestyle"
+  ],
   "shortcuts": [
     {
       "name": "Meu Cartão Digital",
       "short_name": "Cartão",
       "description": "Acesse seu QR Code e saldo de cashback",
       "url": "/?source=shortcut-cartao",
-      "icons": [{ "src": "/assets/img/brand/favicon.png", "sizes": "128x128" }]
+      "icons": [
+        {
+          "src": "/assets/img/brand/favicon.png",
+          "sizes": "128x128"
+        }
+      ]
     },
     {
       "name": "Catálogo de Prêmios",
       "short_name": "Prêmios",
       "description": "Resgate prêmios com seus pontos",
       "url": "/?page=premios&source=shortcut-premios",
-      "icons": [{ "src": "/assets/img/brand/favicon.png", "sizes": "128x128" }]
+      "icons": [
+        {
+          "src": "/assets/img/brand/favicon.png",
+          "sizes": "128x128"
+        }
+      ]
     }
   ]
 }

@@ -511,23 +511,32 @@
   </div>
 
   <script>
-    // Mapeamento Oficial das 6 Unidades do Grupo Oliveira
+    // Mapeamento Oficial das Unidades do Grupo Oliveira em Parintins - AM
     const STATIONS = [
-      { id: 'matriz-parintins', name: 'Posto Marcos Zagury (Matriz)', city: 'Parintins - AM' },
-      { id: 'posto-barreirinha', name: 'Posto Grupo Oliveira Barreirinha', city: 'Barreirinha - AM' },
-      { id: 'posto-nhamunda', name: 'Posto Grupo Oliveira Nhamundá', city: 'Nhamundá - AM' },
-      { id: 'posto-terrasanta', name: 'Posto Grupo Oliveira Terra Santa', city: 'Terra Santa - PA' },
-      { id: 'posto-fluvial', name: 'Posto Fluvial Grupo Oliveira', city: 'Parintins - AM' },
-      { id: 'posto-express', name: 'Posto Grupo Oliveira Express', city: 'Parintins - AM' }
+      { id: 'posto-planetaboi', name: 'Posto Oliveira Planeta Boi', city: 'Parintins - AM' },
+      { id: 'posto-uniao', name: 'Fábrica de Gelo e Posto União', city: 'Parintins - AM' },
+      { id: 'posto-ponte', name: 'Posto Oliveira Ponte', city: 'Parintins - AM' },
+      { id: 'posto-sham', name: 'Posto Oliveira Sham', city: 'Parintins - AM' },
+      { id: 'posto-francesa', name: 'Posto Oliveira Francesa', city: 'Parintins - AM' },
+      { id: 'posto-vilacristina', name: 'Posto Oliveira — Vila Cristina', city: 'Parintins - AM' },
+      { id: 'escritorio-central', name: 'Escritório Central Grupo Oliveira', city: 'Parintins - AM' }
     ];
 
     const ALIASES = {
-      'posto-01': 'matriz-parintins', 'posto-1': 'matriz-parintins', 'matriz': 'matriz-parintins',
-      'posto-02': 'posto-barreirinha', 'posto-2': 'posto-barreirinha', 'barreirinha': 'posto-barreirinha',
-      'posto-03': 'posto-nhamunda', 'posto-3': 'posto-nhamunda', 'nhamunda': 'posto-nhamunda',
-      'posto-04': 'posto-terrasanta', 'posto-4': 'posto-terrasanta', 'terrasanta': 'posto-terrasanta',
-      'posto-05': 'posto-fluvial', 'posto-5': 'posto-fluvial', 'fluvial': 'posto-fluvial',
-      'posto-06': 'posto-express', 'posto-6': 'posto-express', 'express': 'posto-express'
+      'posto-planetaboi': 'posto-planetaboi', 'planetaboi': 'posto-planetaboi',
+      'posto-uniao': 'posto-uniao', 'uniao': 'posto-uniao',
+      'posto-ponte': 'posto-ponte', 'ponte': 'posto-ponte',
+      'posto-sham': 'posto-sham', 'sham': 'posto-sham',
+      'posto-francesa': 'posto-francesa', 'francesa': 'posto-francesa',
+      'posto-vilacristina': 'posto-vilacristina', 'vilacristina': 'posto-vilacristina',
+      'escritorio-central': 'escritorio-central', 'escritorio': 'escritorio-central',
+      // Retrocompatibilidade
+      'posto-01': 'posto-vilacristina', 'posto-1': 'posto-vilacristina', 'matriz': 'posto-planetaboi', 'matriz-parintins': 'posto-planetaboi',
+      'posto-02': 'posto-uniao', 'posto-2': 'posto-uniao', 'barreirinha': 'posto-uniao', 'posto-barreirinha': 'posto-uniao',
+      'posto-03': 'posto-ponte', 'posto-3': 'posto-ponte', 'nhamunda': 'posto-ponte', 'posto-nhamunda': 'posto-ponte',
+      'posto-04': 'posto-sham', 'posto-4': 'posto-sham', 'terrasanta': 'posto-sham', 'posto-terrasanta': 'posto-sham',
+      'posto-05': 'posto-francesa', 'posto-5': 'posto-francesa', 'fluvial': 'posto-francesa', 'posto-fluvial': 'posto-francesa',
+      'posto-06': 'posto-planetaboi', 'posto-6': 'posto-planetaboi', 'express': 'posto-planetaboi', 'posto-express': 'posto-planetaboi'
     };
 
     function resolveStation(ref) {

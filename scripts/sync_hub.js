@@ -43,8 +43,8 @@ function getDefaultDatabase() {
         fills: [
           {
             id: 'GO-TX-99410',
-            stationId: 'matriz-parintins',
-            station: 'Posto Marcos Zagury (Matriz)',
+            stationId: 'posto-planetaboi',
+            station: 'Posto Oliveira Planeta Boi',
             city: 'Parintins - AM',
             attendant: 'Carlos Silva',
             customerName: 'Kaynã Viana',
@@ -92,8 +92,8 @@ function getDefaultDatabase() {
         id: 'fc7afcfe-fcde-4250-8efe-520b3d455b02',
         name: 'Carlos Silva',
         registration: '01',
-        stationId: 'matriz-parintins',
-        stationName: 'Posto Marcos Zagury (Matriz)',
+        stationId: 'posto-planetaboi',
+        stationName: 'Posto Oliveira Planeta Boi',
         stationCity: 'Parintins - AM',
         todayStats: {
           fillsCount: 16,
@@ -103,54 +103,54 @@ function getDefaultDatabase() {
       }
     },
     stations: {
-      'matriz-parintins': {
-        id: 'matriz-parintins',
-        name: 'Posto Marcos Zagury (Matriz)',
+      'posto-planetaboi': {
+        id: 'posto-planetaboi',
+        name: 'Posto Oliveira Planeta Boi',
         city: 'Parintins - AM',
         revenue: 4250.00,
         fills: 52,
         cashbackUsed: 45.00,
         cashbackEmitted: 127.50
       },
-      'posto-barreirinha': {
-        id: 'posto-barreirinha',
-        name: 'Posto Grupo Oliveira Barreirinha',
-        city: 'Barreirinha - AM',
+      'posto-uniao': {
+        id: 'posto-uniao',
+        name: 'Fábrica de Gelo e Posto União',
+        city: 'Parintins - AM',
         revenue: 2450.00,
         fills: 31,
         cashbackUsed: 20.00,
         cashbackEmitted: 73.50
       },
-      'posto-nhamunda': {
-        id: 'posto-nhamunda',
-        name: 'Posto Grupo Oliveira Nhamundá',
-        city: 'Nhamundá - AM',
+      'posto-ponte': {
+        id: 'posto-ponte',
+        name: 'Posto Oliveira Ponte',
+        city: 'Parintins - AM',
         revenue: 2180.00,
         fills: 28,
         cashbackUsed: 15.00,
         cashbackEmitted: 65.40
       },
-      'posto-terrasanta': {
-        id: 'posto-terrasanta',
-        name: 'Posto Grupo Oliveira Terra Santa',
-        city: 'Terra Santa - PA',
+      'posto-sham': {
+        id: 'posto-sham',
+        name: 'Posto Oliveira Sham',
+        city: 'Parintins - AM',
         revenue: 2890.00,
         fills: 36,
         cashbackUsed: 30.00,
         cashbackEmitted: 86.70
       },
-      'posto-fluvial': {
-        id: 'posto-fluvial',
-        name: 'Posto Fluvial Grupo Oliveira',
+      'posto-francesa': {
+        id: 'posto-francesa',
+        name: 'Posto Oliveira Francesa',
         city: 'Parintins - AM',
         revenue: 3650.00,
         fills: 22,
         cashbackUsed: 35.00,
         cashbackEmitted: 109.50
       },
-      'posto-express': {
-        id: 'posto-express',
-        name: 'Posto Grupo Oliveira Express',
+      'posto-vilacristina': {
+        id: 'posto-vilacristina',
+        name: 'Posto Oliveira — Vila Cristina',
         city: 'Parintins - AM',
         revenue: 1980.00,
         fills: 38,
@@ -161,8 +161,8 @@ function getDefaultDatabase() {
     recentTransactions: [
       {
         id: 'GO-TX-99410',
-        stationId: 'matriz-parintins',
-        station: 'Posto Marcos Zagury (Matriz)',
+        stationId: 'posto-planetaboi',
+        station: 'Posto Oliveira Planeta Boi',
         customer: 'Kaynã Viana',
         fuel: 'Gasolina Aditivada',
         liters: 14.73,
@@ -173,8 +173,8 @@ function getDefaultDatabase() {
       },
       {
         id: 'GO-TX-99388',
-        stationId: 'matriz-parintins',
-        station: 'Posto Marcos Zagury (Matriz)',
+        stationId: 'posto-planetaboi',
+        station: 'Posto Oliveira Planeta Boi',
         customer: 'Marcos Vinicius',
         fuel: 'Gasolina Comum',
         liters: 22.76,
@@ -185,8 +185,8 @@ function getDefaultDatabase() {
       },
       {
         id: 'GO-TX-99342',
-        stationId: 'posto-barreirinha',
-        station: 'Posto Grupo Oliveira Barreirinha',
+        stationId: 'posto-uniao',
+        station: 'Fábrica de Gelo e Posto União',
         customer: 'Renata Albuquerque',
         fuel: 'Diesel S10',
         liters: 43.16,
@@ -197,8 +197,8 @@ function getDefaultDatabase() {
       },
       {
         id: 'GO-TX-99301',
-        stationId: 'posto-nhamunda',
-        station: 'Posto Grupo Oliveira Nhamundá',
+        stationId: 'posto-ponte',
+        station: 'Posto Oliveira Ponte',
         customer: 'João Paulo Tavares',
         fuel: 'Gasolina Comum',
         liters: 18.21,

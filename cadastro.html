@@ -269,7 +269,7 @@
         <span style="font-size:18px">📍</span>
         <div style="flex:1;line-height:1.3">
           <div style="font-size:11px;color:#94a3b8">Unidade de Cadastro:</div>
-          <b id="origin-station-name">Posto Marcos Zagury (Matriz)</b>
+          <b id="origin-station-name">Posto Oliveira Planeta Boi</b>
         </div>
       </div>
 
@@ -375,22 +375,30 @@
 
   <script>
     const STATION_NAMES = {
-      'posto-01': 'Posto Marcos Zagury (Matriz - Parintins)',
-      'matriz-parintins': 'Posto Marcos Zagury (Matriz - Parintins)',
-      'posto-02': 'Posto Grupo Oliveira Barreirinha',
-      'posto-barreirinha': 'Posto Grupo Oliveira Barreirinha',
-      'posto-03': 'Posto Grupo Oliveira Nhamundá',
-      'posto-nhamunda': 'Posto Grupo Oliveira Nhamundá',
-      'posto-04': 'Posto Grupo Oliveira Terra Santa',
-      'posto-terrasanta': 'Posto Grupo Oliveira Terra Santa',
-      'posto-05': 'Posto Fluvial Grupo Oliveira',
-      'posto-fluvial': 'Posto Fluvial Grupo Oliveira',
-      'posto-06': 'Posto Oliveira Express',
-      'posto-express': 'Posto Oliveira Express'
+      'posto-planetaboi': 'Posto Oliveira Planeta Boi',
+      'posto-uniao': 'Fábrica de Gelo e Posto União',
+      'posto-ponte': 'Posto Oliveira Ponte',
+      'posto-sham': 'Posto Oliveira Sham',
+      'posto-francesa': 'Posto Oliveira Francesa',
+      'posto-vilacristina': 'Posto Oliveira — Vila Cristina',
+      'escritorio-central': 'Escritório Central Grupo Oliveira',
+      // Aliases para compatibilidade
+      'posto-01': 'Posto Oliveira — Vila Cristina',
+      'matriz-parintins': 'Posto Oliveira Planeta Boi',
+      'posto-02': 'Fábrica de Gelo e Posto União',
+      'posto-barreirinha': 'Fábrica de Gelo e Posto União',
+      'posto-03': 'Posto Oliveira Ponte',
+      'posto-nhamunda': 'Posto Oliveira Ponte',
+      'posto-04': 'Posto Oliveira Sham',
+      'posto-terrasanta': 'Posto Oliveira Sham',
+      'posto-05': 'Posto Oliveira Francesa',
+      'posto-fluvial': 'Posto Oliveira Francesa',
+      'posto-06': 'Posto Oliveira Planeta Boi',
+      'posto-express': 'Posto Oliveira Planeta Boi'
     };
 
     let supabaseClient = null;
-    let originStationId = 'matriz-parintins';
+    let originStationId = 'posto-planetaboi';
 
     async function initSupabase() {
       try {

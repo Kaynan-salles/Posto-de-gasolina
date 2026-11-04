@@ -136,47 +136,64 @@ state.attendantFills = state.attendantFills || [];
 
 state.pendingOperation = state.pendingOperation || null;
 
-// Aliases para identificação dos 6 postos (ex: posto-01, matriz-parintins, UUIDs)
+// Aliases para identificação oficial dos 6 postos e sede administrativa de Parintins - AM
 const STATION_ALIASES = {
-  'posto-01': 'matriz-parintins',
-  'posto-1': 'matriz-parintins',
-  'matriz': 'matriz-parintins',
-  'matriz-parintins': 'matriz-parintins',
-  'a1b2c3d4-0001-4000-8000-000000000001': 'matriz-parintins',
+  'posto-01': 'posto-vilacristina',
+  'posto-1': 'posto-vilacristina',
+  'vilacristina': 'posto-vilacristina',
+  'posto-vilacristina': 'posto-vilacristina',
+  'matriz-parintins': 'posto-planetaboi',
+  'a1b2c3d4-0001-4000-8000-000000000001': 'posto-vilacristina',
 
-  'posto-02': 'posto-barreirinha',
-  'posto-2': 'posto-barreirinha',
-  'barreirinha': 'posto-barreirinha',
-  'posto-barreirinha': 'posto-barreirinha',
-  'a1b2c3d4-0002-4000-8000-000000000002': 'posto-barreirinha',
+  'posto-02': 'posto-uniao',
+  'posto-2': 'posto-uniao',
+  'uniao': 'posto-uniao',
+  'posto-uniao': 'posto-uniao',
+  'posto-barreirinha': 'posto-uniao',
+  'a1b2c3d4-0002-4000-8000-000000000002': 'posto-uniao',
 
-  'posto-03': 'posto-nhamunda',
-  'posto-3': 'posto-nhamunda',
-  'nhamunda': 'posto-nhamunda',
-  'posto-nhamunda': 'posto-nhamunda',
-  'a1b2c3d4-0003-4000-8000-000000000003': 'posto-nhamunda',
+  'posto-03': 'posto-ponte',
+  'posto-3': 'posto-ponte',
+  'ponte': 'posto-ponte',
+  'posto-ponte': 'posto-ponte',
+  'posto-nhamunda': 'posto-ponte',
+  'a1b2c3d4-0003-4000-8000-000000000003': 'posto-ponte',
 
-  'posto-04': 'posto-terrasanta',
-  'posto-4': 'posto-terrasanta',
-  'terrasanta': 'posto-terrasanta',
-  'posto-terrasanta': 'posto-terrasanta',
-  'a1b2c3d4-0004-4000-8000-000000000004': 'posto-terrasanta',
+  'posto-04': 'posto-sham',
+  'posto-4': 'posto-sham',
+  'sham': 'posto-sham',
+  'posto-sham': 'posto-sham',
+  'posto-terrasanta': 'posto-sham',
+  'a1b2c3d4-0004-4000-8000-000000000004': 'posto-sham',
 
-  'posto-05': 'posto-fluvial',
-  'posto-5': 'posto-fluvial',
-  'fluvial': 'posto-fluvial',
-  'posto-fluvial': 'posto-fluvial',
-  'a1b2c3d4-0005-4000-8000-000000000005': 'posto-fluvial',
+  'posto-05': 'posto-francesa',
+  'posto-5': 'posto-francesa',
+  'francesa': 'posto-francesa',
+  'posto-francesa': 'posto-francesa',
+  'posto-fluvial': 'posto-francesa',
+  'a1b2c3d4-0005-4000-8000-000000000005': 'posto-francesa',
 
-  'posto-06': 'posto-express',
-  'posto-6': 'posto-express',
-  'express': 'posto-express',
-  'posto-express': 'posto-express',
-  'a1b2c3d4-0006-4000-8000-000000000006': 'posto-express'
+  'posto-06': 'posto-planetaboi',
+  'posto-6': 'posto-planetaboi',
+  'planetaboi': 'posto-planetaboi',
+  'posto-planetaboi': 'posto-planetaboi',
+  'posto-express': 'posto-planetaboi',
+  'a1b2c3d4-0006-4000-8000-000000000006': 'posto-planetaboi',
+
+  'escritorio': 'escritorio-central',
+  'escritorio-central': 'escritorio-central'
 };
 
 const STATION_DB_MAP = {
-  'matriz-parintins': 'a1b2c3d4-0001-4000-8000-000000000001',
+  'posto-vilacristina': 'a1b2c3d4-0001-4000-8000-000000000001',
+  'posto-uniao': 'a1b2c3d4-0002-4000-8000-000000000002',
+  'posto-ponte': 'a1b2c3d4-0003-4000-8000-000000000003',
+  'posto-sham': 'a1b2c3d4-0004-4000-8000-000000000004',
+  'posto-francesa': 'a1b2c3d4-0005-4000-8000-000000000005',
+  'posto-planetaboi': 'a1b2c3d4-0006-4000-8000-000000000006',
+  'escritorio-central': 'a1b2c3d4-0007-4000-8000-000000000007',
+  // Retrocompatibilidade com nomes legados
+  'matriz-parintins': 'a1b2c3d4-0006-4000-8000-000000000006',
   'posto-barreirinha': 'a1b2c3d4-0002-4000-8000-000000000002',
   'posto-nhamunda': 'a1b2c3d4-0003-4000-8000-000000000003',
   'posto-terrasanta': 'a1b2c3d4-0004-4000-8000-000000000004',
@@ -283,15 +300,99 @@ let prizeTab = 'Disponíveis';
 let voucherTab = 'Disponíveis';
 let notifFilter = 'Todas';
 
-// Nossas Unidades oficiais do Grupo Oliveira (Extraídas da Identidade Visual)
+// Nossas Unidades oficiais do Grupo Oliveira (Dados Reais das Unidades de Parintins - AM)
 const stations = [
   {
-    id: 'matriz-parintins',
-    name: 'Posto Marcos Zagury (Matriz)',
+    id: 'posto-vilacristina',
+    name: 'Posto Oliveira — Vila Cristina',
     city: 'Parintins - AM',
-    address: 'Av. Marcos Zagury, 455 — Parintins, AM',
+    address: 'Vila Cristina, Estrada Odovaldo Novo — Parintins, AM',
+    hours: '06:00 às 22:00',
+    phone: '(92) 99123-4561',
+    image: 'assets/img/media/station_canopy.webp',
+    fuels: [
+      { name: 'Gasolina Comum', price: 6.59 },
+      { name: 'Gasolina Aditivada', price: 6.79 },
+      { name: 'Diesel S10', price: 6.89 },
+      { name: 'Etanol', price: 5.29 }
+    ],
+    services: ['Abastecimento Completo', 'Conveniência', 'Troca de Óleo Lubrax', 'Calibrador Digital'],
+    mapsUrl: "https://www.google.com/maps/place/2%C2%B040'11.6%22S+56%C2%B044'10.7%22W/@-2.6698968,-56.738884,17z/data=!3m1!4b1!4m4!3m3!8m2!3d-2.6698968!4d-56.7363091?hl=pt-BR&entry=ttu&g_ep=EgoyMDI2MTEwMi4wIKXMDSoASAFQAw%3D%3D"
+  },
+  {
+    id: 'posto-uniao',
+    name: 'Fábrica de Gelo e Posto União',
+    city: 'Parintins - AM',
+    address: 'Bairro União / Orla — Parintins, AM',
     hours: 'Aberto 24 Horas',
-    phone: '(92) 99123-4567',
+    phone: '(92) 99123-4562',
+    image: 'assets/img/media/station_night.webp',
+    fuels: [
+      { name: 'Gasolina Comum', price: 6.59 },
+      { name: 'Gasolina Aditivada', price: 6.79 },
+      { name: 'Diesel S10', price: 6.89 },
+      { name: 'Diesel Náutico', price: 6.85 }
+    ],
+    services: ['Fábrica de Gelo em Escamas & Barra', 'Abastecimento Fluvial & Terrestre', 'Conveniência 24h', 'Ducha Ecológica'],
+    mapsUrl: "https://www.google.com/maps/place/2%C2%B038'33.8%22S+56%C2%B044'07.8%22W/@-2.6427147,-56.7380752,17z/data=!3m1!4b1!4m4!3m3!8m2!3d-2.6427147!4d-56.7355003?hl=pt-BR&entry=ttu&g_ep=EgoyMDI2MTEwMi4wIKXMDSoASAFQAw%3D%3D"
+  },
+  {
+    id: 'posto-ponte',
+    name: 'Posto Oliveira Ponte',
+    city: 'Parintins - AM',
+    address: 'Próximo à Ponte Amazonino Mendes — Parintins, AM',
+    hours: '06:00 às 23:00',
+    phone: '(92) 99123-4563',
+    image: 'assets/img/media/station_totem.webp',
+    fuels: [
+      { name: 'Gasolina Comum', price: 6.59 },
+      { name: 'Gasolina Aditivada', price: 6.79 },
+      { name: 'Diesel S10', price: 6.89 }
+    ],
+    services: ['Ponto Estratégico', 'Calibrador Digital', 'Troca de Óleo Lubrax', 'Conveniência'],
+    mapsUrl: "https://www.google.com/maps/place/2%C2%B038'18.3%22S+56%C2%B044'12.5%22W/@-2.6384244,-56.7393684,17z/data=!3m1!4b1!4m4!3m3!8m2!3d-2.6384244!4d-56.7367935?hl=pt-BR&entry=ttu&g_ep=EgoyMDI2MTEwMi4wIKXMDSoASAFQAw%3D%3D"
+  },
+  {
+    id: 'posto-sham',
+    name: 'Posto Oliveira Sham',
+    city: 'Parintins - AM',
+    address: 'Bairro Djard Vieira / Sham — Parintins, AM',
+    hours: '06:00 às 23:00',
+    phone: '(92) 99123-4564',
+    image: 'assets/img/media/station_canopy.webp',
+    fuels: [
+      { name: 'Gasolina Comum', price: 6.59 },
+      { name: 'Gasolina Aditivada', price: 6.79 },
+      { name: 'Diesel S10', price: 6.89 },
+      { name: 'Etanol', price: 5.29 }
+    ],
+    services: ['Pista Rápida Automotiva', 'Loja de Conveniência', 'Troca de Óleo', 'Wi-Fi Grátis'],
+    mapsUrl: "https://www.google.com/maps/place/2%C2%B038'05.5%22S+56%C2%B044'25.5%22W/@-2.6348491,-56.7429848,17z/data=!3m1!4b1!4m4!3m3!8m2!3d-2.6348491!4d-56.7404099?hl=pt-BR&entry=ttu&g_ep=EgoyMDI2MTEwMi4wIKXMDSoASAFQAw%3D%3D"
+  },
+  {
+    id: 'posto-francesa',
+    name: 'Posto Oliveira Francesa',
+    city: 'Parintins - AM',
+    address: 'Bairro da Francesa / Orla Fluvial — Parintins, AM',
+    hours: '06:00 às 23:00',
+    phone: '(92) 99123-4565',
+    image: 'assets/img/media/station_totem.webp',
+    fuels: [
+      { name: 'Gasolina Comum', price: 6.59 },
+      { name: 'Gasolina Aditivada', price: 6.79 },
+      { name: 'Diesel Náutico', price: 6.85 },
+      { name: 'Diesel S10', price: 6.89 }
+    ],
+    services: ['Atendimento Fluvial & Terrestre', 'Abastecimento de Embarcações', 'Óleos Náuticos 2T/4T', 'Conveniência Portuária'],
+    mapsUrl: "https://www.google.com/maps/place/2%C2%B037'32.5%22S+56%C2%B043'37.9%22W/@-2.6257062,-56.7297783,17z/data=!3m1!4b1!4m4!3m3!8m2!3d-2.6257062!4d-56.7272034?hl=pt-BR&entry=ttu&g_ep=EgoyMDI2MTEwMi4wIKXMDSoASAFQAw%3D%3D"
+  },
+  {
+    id: 'posto-planetaboi',
+    name: 'Posto Oliveira Planeta Boi',
+    city: 'Parintins - AM',
+    address: 'Av. Paraíba (Próximo ao Planeta Boi / Bumbódromo) — Parintins, AM',
+    hours: 'Aberto 24 Horas',
+    phone: '(92) 99123-4566',
     image: 'assets/img/media/station_night.webp',
     fuels: [
       { name: 'Gasolina Comum', price: 6.59 },
@@ -299,88 +400,21 @@ const stations = [
       { name: 'Diesel S10', price: 6.89 },
       { name: 'Etanol', price: 5.29 }
     ],
-    services: ['Conveniência 24h', 'Ducha Ecológica', 'Troca de Óleo Lubrax', 'Calibrador Digital', 'Wi-Fi Grátis'],
-    mapsUrl: 'https://maps.google.com/?q=Marcos+Zagury+455+Parintins+AM'
+    services: ['Conveniência 24h', 'Ducha Ecológica', 'Calibrador Digital', 'Troca de Óleo Lubrax'],
+    mapsUrl: "https://www.google.com/maps/place/Quebrando+o+Gelo/@-2.6343622,-56.7497139,17z/data=!4m6!3m5!1s0x92638388a96da113:0x930d6c47c2eca7c0!8m2!3d-2.6343613!4d-56.7497122!16s%2Fg%2F11zh6n43fp?hl=pt-BR&entry=ttu&g_ep=EgoyMDI2MTEwMi4wIKXMDSoASAFQAw%3D%3D"
   },
   {
-    id: 'posto-barreirinha',
-    name: 'Posto Grupo Oliveira Barreirinha',
-    city: 'Barreirinha - AM',
-    address: 'Área Central / Orla — Barreirinha, AM',
-    hours: '06:00 às 22:00',
-    phone: '(92) 99123-7890',
-    image: 'assets/img/media/station_canopy.webp',
-    fuels: [
-      { name: 'Gasolina Comum', price: 6.69 },
-      { name: 'Gasolina Aditivada', price: 6.89 },
-      { name: 'Diesel S10', price: 6.95 }
-    ],
-    services: ['Atendimento Fluvial & Terrestre', 'Conveniência', 'Troca de Óleo', 'Calibrador'],
-    mapsUrl: 'https://maps.google.com/?q=Barreirinha+AM+Posto+Combustivel'
-  },
-  {
-    id: 'posto-nhamunda',
-    name: 'Posto Grupo Oliveira Nhamundá',
-    city: 'Nhamundá - AM',
-    address: 'Orla Principal Fluvial — Nhamundá, AM',
-    hours: '06:00 às 22:00',
-    phone: '(92) 99123-1122',
-    image: 'assets/img/media/station_totem.webp',
-    fuels: [
-      { name: 'Gasolina Comum', price: 6.75 },
-      { name: 'Gasolina Aditivada', price: 6.95 },
-      { name: 'Diesel S10', price: 6.99 }
-    ],
-    services: ['Abastecimento Náutico & Automotivo', 'Conveniência', 'Lubrificantes de Alta Performance'],
-    mapsUrl: 'https://maps.google.com/?q=Nhamunda+AM+Posto+Combustivel'
-  },
-  {
-    id: 'posto-terrasanta',
-    name: 'Posto Grupo Oliveira Terra Santa',
-    city: 'Terra Santa - PA',
-    address: 'Av. Central de Acesso — Terra Santa, PA',
-    hours: '06:00 às 23:00',
-    phone: '(93) 99123-3344',
-    image: 'assets/img/media/station_canopy.webp',
-    fuels: [
-      { name: 'Gasolina Comum', price: 6.65 },
-      { name: 'Gasolina Aditivada', price: 6.85 },
-      { name: 'Diesel S10', price: 6.89 }
-    ],
-    services: ['Ponto de Apoio Rodoviário', 'Loja de Conveniência', 'Ducha Express'],
-    mapsUrl: 'https://maps.google.com/?q=Terra+Santa+PA+Posto+Combustivel'
-  },
-  {
-    id: 'posto-fluvial',
-    name: 'Posto Fluvial Grupo Oliveira',
+    id: 'escritorio-central',
+    name: 'Escritório Central Grupo Oliveira',
     city: 'Parintins - AM',
-    address: 'Orla Fluvial do Porto — Parintins, AM',
-    hours: '05:30 às 20:00',
-    phone: '(92) 99123-5566',
-    image: 'assets/img/media/station_totem.webp',
-    fuels: [
-      { name: 'Gasolina Comum', price: 6.70 },
-      { name: 'Diesel Marítimo', price: 6.85 },
-      { name: 'Diesel S10', price: 6.92 }
-    ],
-    services: ['Abastecimento de Embarcações & Lanchas', 'Óleo Náutico 2T/4T', 'Conveniência Portuária'],
-    mapsUrl: 'https://maps.google.com/?q=Porto+Parintins+AM'
-  },
-  {
-    id: 'posto-express',
-    name: 'Posto Grupo Oliveira Express',
-    city: 'Parintins - AM',
-    address: 'Av. Amazonas, 1280 — Parintins, AM',
-    hours: '06:00 às 23:00',
-    phone: '(92) 99123-7788',
-    image: 'assets/img/media/station_night.webp',
-    fuels: [
-      { name: 'Gasolina Comum', price: 6.59 },
-      { name: 'Gasolina Aditivada', price: 6.79 },
-      { name: 'Etanol', price: 5.29 }
-    ],
-    services: ['Pista Rápida Motos & Carros', 'Troca de Óleo Express', 'Calibrador Digital'],
-    mapsUrl: 'https://maps.google.com/?q=Av+Amazonas+Parintins+AM'
+    address: 'Centro Administrativo Grupo Oliveira — Parintins, AM',
+    hours: '08:00 às 18:00 (Seg a Sex)',
+    phone: '(92) 99123-4567',
+    image: 'assets/img/media/branding_bag.webp',
+    fuels: [],
+    services: ['Sede Administrativa', 'Atendimento Corporativo', 'Gestão do Clube de Vantagens', 'Parcerias & Convênios'],
+    mapsUrl: "https://www.google.com/maps/place/2%C2%B037'37.5%22S+56%C2%B043'14.5%22W/@-2.6270754,-56.7232628,17z/data=!3m1!4b1!4m4!3m3!8m2!3d-2.6270754!4d-56.7206879?hl=pt-BR&entry=ttu&g_ep=EgoyMDI2MTEwMi4wIKXMDSoASAFQAw%3D%3D",
+    isHeadquarters: true
   }
 ];
 
@@ -700,11 +734,11 @@ function renderPromoCards() {
 
       <!-- Story Banner Card from PDF (page_10_img_2) -->
       <article class="promo-media-card" onclick="openPromoModal('postos-oliveira')">
-        <img src="assets/img/media/story_banner.webp" class="promo-media-img" alt="Presença Regional Grupo Oliveira">
+        <img src="assets/img/media/story_banner.webp" class="promo-media-img" alt="Presença Grupo Oliveira em Parintins">
         <div class="promo-overlay">
-          <span class="promo-badge blue">PRESENÇA REGIONAL</span>
-          <h3 class="promo-title">Parintins, Barreirinha, Nhamundá e Terra Santa</h3>
-          <p class="promo-desc">Qualidade incomparável em combustíveis e atendimento no Baixo Amazonas.</p>
+          <span class="promo-badge blue">REDE EM PARINTINS</span>
+          <h3 class="promo-title">6 Postos & Fábrica de Gelo em Parintins</h3>
+          <p class="promo-desc">Planeta Boi, União, Ponte, Sham, Francesa e Vila Cristina com cashback de 3%.</p>
           <div class="promo-action-row">
             <span>Conheça nossas unidades</span>
             ${icon('arrow')}
@@ -714,11 +748,11 @@ function renderPromoCards() {
 
       <!-- Station Night Backdrop Card (page_6_img_1) -->
       <article class="promo-media-card" onclick="go('Unidades')">
-        <img src="assets/img/media/station_night.webp" class="promo-media-img" alt="Posto Marcos Zagury Parintins">
+        <img src="assets/img/media/station_night.webp" class="promo-media-img" alt="Posto Oliveira Planeta Boi">
         <div class="promo-overlay">
-          <span class="promo-badge purple">MATRIZ 24 HORAS</span>
-          <h3 class="promo-title">Posto Marcos Zagury — Aberto 24 Horas</h3>
-          <p class="promo-desc">Av. Marcos Zagury, 455, Parintins - AM. Conveniência, troca de óleo e ducha.</p>
+          <span class="promo-badge purple">POSTO 24 HORAS</span>
+          <h3 class="promo-title">Posto Oliveira Planeta Boi — 24 Horas</h3>
+          <p class="promo-desc">Av. Paraíba, Parintins - AM. Conveniência, troca de óleo Lubrax e ducha ecológica.</p>
           <div class="promo-action-row">
             <span>Como chegar e tabela de preços</span>
             ${icon('arrow')}
@@ -904,53 +938,61 @@ function renderUnidades() {
     <div class="subpage-container">
       <div class="subpage-head">
         <h1>Nossas Unidades</h1>
-        <span style="font-size:12px;color:var(--primary);font-weight:700">4 Postos Ativos</span>
+        <span style="font-size:12px;color:var(--primary);font-weight:700">6 Postos & Sede em Parintins</span>
       </div>
       <p style="padding: 0 16px 16px; color: var(--text-muted); font-size:13px;">
-        Abasteça com total confiança e acumule pontos e cashback em toda a rede Grupo Oliveira no Baixo Amazonas.
+        Abasteça com total confiança e acumule pontos e cashback nas unidades oficiais do Grupo Oliveira em Parintins - AM.
       </p>
 
       ${stations.map(st => `
         <article class="station-card">
           <div class="station-img-banner">
             <img src="${st.image}" alt="${esc(st.name)}">
-            <span class="station-status-pill">${esc(st.hours)}</span>
+            <span class="station-status-pill ${st.isHeadquarters ? 'purple' : ''}">${esc(st.hours)}</span>
           </div>
           <div class="station-info">
-            <div class="station-city">${esc(st.city)}</div>
+            <div class="station-city">${esc(st.city)} ${st.isHeadquarters ? '• Sede Administrativa' : ''}</div>
             <h3 class="station-name">${esc(st.name)}</h3>
             <div class="station-address">
               ${icon('pin')}
               <span>${esc(st.address)}</span>
             </div>
 
-            <!-- Preços dos combustíveis -->
-            <div style="margin-bottom:12px">
-              <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Preços do dia:</span>
-              <div class="fuel-tags" style="margin-top:6px">
-                ${st.fuels.map(f => `
-                  <div class="fuel-tag">
-                    <b>${f.name}:</b> R$ ${f.price.toFixed(2).replace('.', ',')}
-                  </div>
-                `).join('')}
+            ${st.fuels && st.fuels.length > 0 ? `
+              <!-- Preços dos combustíveis -->
+              <div style="margin-bottom:12px">
+                <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Preços do dia:</span>
+                <div class="fuel-tags" style="margin-top:6px">
+                  ${st.fuels.map(f => `
+                    <div class="fuel-tag">
+                      <b>${f.name}:</b> R$ ${f.price.toFixed(2).replace('.', ',')}
+                    </div>
+                  `).join('')}
+                </div>
               </div>
-            </div>
+            ` : ''}
 
             <!-- Serviços disponíveis -->
             <div style="margin-bottom:16px">
-              <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Serviços:</span>
+              <span style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Serviços & Atendimento:</span>
               <div class="fuel-tags" style="margin-top:6px">
                 ${st.services.map(s => `<span class="fuel-tag" style="background:#f8fafc">✓ ${s}</span>`).join('')}
               </div>
             </div>
 
             <div class="station-actions">
-              <a href="${st.mapsUrl}" target="_blank" class="btn btn-outline" style="text-decoration:none">
+              <a href="${st.mapsUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="text-decoration:none">
                 ${icon('pin')} Como Chegar
               </a>
-              <button class="btn btn-primary" onclick="openAbastecerModal('${st.name}')">
-                ${icon('fuel')} Abastecer Aqui
-              </button>
+              ${!st.isHeadquarters ? `
+                <button class="btn btn-primary" onclick="openAbastecerModal('${esc(st.name)}')">
+                  ${icon('fuel')} Abastecer Aqui
+                </button>
+              ` : `
+                <a href="tel:${st.phone}" class="btn btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px">
+                  ${icon('phone')} Fale Conosco
+                </a>
+              `}
             </div>
           </div>
         </article>
@@ -1670,15 +1712,15 @@ function getNetworkAnalytics(filterStation, filterPeriod) {
 
   // Baseline robusta para apresentação executiva dos 6 postos
   const defaultStations = [
-    { id: 'matriz-parintins', revenue: 4250.00, fills: 52, cashbackUsed: 45.00, share: 24 },
-    { id: 'posto-barreirinha', revenue: 2450.00, fills: 31, cashbackUsed: 20.00, share: 14 },
-    { id: 'posto-nhamunda', revenue: 2180.00, fills: 28, cashbackUsed: 15.00, share: 13 },
-    { id: 'posto-terrasanta', revenue: 2890.00, fills: 36, cashbackUsed: 30.00, share: 17 },
-    { id: 'posto-fluvial', revenue: 3650.00, fills: 22, cashbackUsed: 35.00, share: 21 },
-    { id: 'posto-express', revenue: 1980.00, fills: 38, cashbackUsed: 19.00, share: 11 }
+    { id: 'posto-planetaboi', revenue: 4250.00, fills: 52, cashbackUsed: 45.00, share: 24 },
+    { id: 'posto-uniao', revenue: 2450.00, fills: 31, cashbackUsed: 20.00, share: 14 },
+    { id: 'posto-ponte', revenue: 2180.00, fills: 28, cashbackUsed: 15.00, share: 13 },
+    { id: 'posto-sham', revenue: 2890.00, fills: 36, cashbackUsed: 30.00, share: 17 },
+    { id: 'posto-francesa', revenue: 3650.00, fills: 22, cashbackUsed: 35.00, share: 21 },
+    { id: 'posto-vilacristina', revenue: 1980.00, fills: 38, cashbackUsed: 19.00, share: 11 }
   ];
 
-  let filteredStations = stations.map(st => {
+  let filteredStations = stations.filter(s => !s.isHeadquarters).map(st => {
     const ds = defaultStations.find(d => d.id === st.id) || { revenue: 2000, fills: 25, cashbackUsed: 20, share: 16 };
     return {
       id: st.id,
@@ -1726,10 +1768,10 @@ function getNetworkAnalytics(filterStation, filterPeriod) {
   }));
 
   const baselineRecent = [
-    { customer: 'Kaynã Viana', station: 'Posto Marcos Zagury (Matriz)', stationId: 'matriz-parintins', fuel: 'Gasolina Aditivada', liters: 14.73, amount: 100.00, cashback: 3.00, time: '14:20', status: 'Concluído' },
-    { customer: 'Marcos Vinicius', station: 'Posto Marcos Zagury (Matriz)', stationId: 'matriz-parintins', fuel: 'Gasolina Comum', liters: 22.76, amount: 150.00, cashback: 4.50, time: '13:55', status: 'Concluído' },
-    { customer: 'Renata Albuquerque', station: 'Posto Grupo Oliveira Barreirinha', stationId: 'posto-barreirinha', fuel: 'Diesel S10', liters: 43.16, amount: 300.00, cashback: 9.00, time: '13:10', status: 'Concluído' },
-    { customer: 'João Paulo Tavares', station: 'Posto Grupo Oliveira Nhamundá', stationId: 'posto-nhamunda', fuel: 'Gasolina Comum', liters: 18.21, amount: 120.00, cashback: 3.60, time: '12:40', status: 'Concluído' }
+    { customer: 'Kaynã Viana', station: 'Posto Oliveira Planeta Boi', stationId: 'posto-planetaboi', fuel: 'Gasolina Aditivada', liters: 14.73, amount: 100.00, cashback: 3.00, time: '14:20', status: 'Concluído' },
+    { customer: 'Marcos Vinicius', station: 'Posto Oliveira Planeta Boi', stationId: 'posto-planetaboi', fuel: 'Gasolina Comum', liters: 22.76, amount: 150.00, cashback: 4.50, time: '13:55', status: 'Concluído' },
+    { customer: 'Renata Albuquerque', station: 'Fábrica de Gelo e Posto União', stationId: 'posto-uniao', fuel: 'Diesel S10', liters: 43.16, amount: 300.00, cashback: 9.00, time: '13:10', status: 'Concluído' },
+    { customer: 'João Paulo Tavares', station: 'Posto Oliveira Ponte', stationId: 'posto-ponte', fuel: 'Gasolina Comum', liters: 18.21, amount: 120.00, cashback: 3.60, time: '12:40', status: 'Concluído' }
   ];
 
   return {
@@ -2023,7 +2065,7 @@ function renderOwnerDashboard() {
           <div class="owner-title-block">
             <h1>Rede Grupo Oliveira (6 Postos)</h1>
             <div class="owner-subtitle">
-              <span>Parintins • Barreirinha • Nhamundá • Terra Santa</span>
+              <span>Parintins - AM • 6 Postos Operacionais & Sede</span>
               <span>•</span>
               <span style="color:#fde68a;font-weight:700">Filtro: ${esc(data.periodCfg.label)}</span>
             </div>
@@ -2036,9 +2078,9 @@ function renderOwnerDashboard() {
             <span class="owner-filter-label">📍 Unidade:</span>
             <select class="owner-select-station" onchange="setOwnerStationFilter(this.value)" aria-label="Filtrar por Unidade">
               <option value="all" ${currentStation === 'all' ? 'selected' : ''}>Todos os Postos da Rede (6 Unidades)</option>
-              ${stations.map(st => `
+              ${stations.filter(st => !st.isHeadquarters).map(st => `
                 <option value="${esc(st.id)}" ${currentStation === st.id ? 'selected' : ''}>
-                  ${esc(st.name)} (${esc(st.city)})
+                  ${esc(st.name)}
                 </option>
               `).join('')}
             </select>
