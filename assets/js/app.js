@@ -309,7 +309,7 @@ const stations = [
     address: 'Vila Cristina, Estrada Odovaldo Novo — Parintins, AM',
     hours: '06:00 às 22:00',
     phone: '(92) 99123-4561',
-    image: 'assets/img/media/station_canopy.webp',
+    image: 'assets/img/units/posto_vilacristina.webp',
     fuels: [
       { name: 'Gasolina Comum', price: 6.59 },
       { name: 'Gasolina Aditivada', price: 6.79 },
@@ -326,7 +326,7 @@ const stations = [
     address: 'Bairro União / Orla — Parintins, AM',
     hours: 'Aberto 24 Horas',
     phone: '(92) 99123-4562',
-    image: 'assets/img/media/station_night.webp',
+    image: 'assets/img/units/posto_uniao.webp',
     fuels: [
       { name: 'Gasolina Comum', price: 6.59 },
       { name: 'Gasolina Aditivada', price: 6.79 },
@@ -343,7 +343,7 @@ const stations = [
     address: 'Próximo à Ponte Amazonino Mendes — Parintins, AM',
     hours: '06:00 às 23:00',
     phone: '(92) 99123-4563',
-    image: 'assets/img/media/station_totem.webp',
+    image: 'assets/img/units/posto_ponte.webp',
     fuels: [
       { name: 'Gasolina Comum', price: 6.59 },
       { name: 'Gasolina Aditivada', price: 6.79 },
@@ -359,7 +359,7 @@ const stations = [
     address: 'Bairro Djard Vieira / Sham — Parintins, AM',
     hours: '06:00 às 23:00',
     phone: '(92) 99123-4564',
-    image: 'assets/img/media/station_canopy.webp',
+    image: 'assets/img/units/posto_sham.webp',
     fuels: [
       { name: 'Gasolina Comum', price: 6.59 },
       { name: 'Gasolina Aditivada', price: 6.79 },
@@ -376,7 +376,7 @@ const stations = [
     address: 'Bairro da Francesa / Orla Fluvial — Parintins, AM',
     hours: '06:00 às 23:00',
     phone: '(92) 99123-4565',
-    image: 'assets/img/media/station_totem.webp',
+    image: 'assets/img/units/posto_francesa.webp',
     fuels: [
       { name: 'Gasolina Comum', price: 6.59 },
       { name: 'Gasolina Aditivada', price: 6.79 },
@@ -393,7 +393,7 @@ const stations = [
     address: 'Av. Paraíba (Próximo ao Planeta Boi / Bumbódromo) — Parintins, AM',
     hours: 'Aberto 24 Horas',
     phone: '(92) 99123-4566',
-    image: 'assets/img/media/station_night.webp',
+    image: 'assets/img/units/posto_planetaboi.webp',
     fuels: [
       { name: 'Gasolina Comum', price: 6.59 },
       { name: 'Gasolina Aditivada', price: 6.79 },
@@ -410,7 +410,7 @@ const stations = [
     address: 'Centro Administrativo Grupo Oliveira — Parintins, AM',
     hours: '08:00 às 18:00 (Seg a Sex)',
     phone: '(92) 99123-4567',
-    image: 'assets/img/media/branding_bag.webp',
+    image: 'assets/img/units/escritorio_central.webp',
     fuels: [],
     services: ['Sede Administrativa', 'Atendimento Corporativo', 'Gestão do Clube de Vantagens', 'Parcerias & Convênios'],
     mapsUrl: "https://www.google.com/maps/place/2%C2%B037'37.5%22S+56%C2%B043'14.5%22W/@-2.6270754,-56.7232628,17z/data=!3m1!4b1!4m4!3m3!8m2!3d-2.6270754!4d-56.7206879?hl=pt-BR&entry=ttu&g_ep=EgoyMDI2MTEwMi4wIKXMDSoASAFQAw%3D%3D",
@@ -748,7 +748,7 @@ function renderPromoCards() {
 
       <!-- Station Night Backdrop Card (page_6_img_1) -->
       <article class="promo-media-card" onclick="go('Unidades')">
-        <img src="assets/img/media/station_night.webp" class="promo-media-img" alt="Posto Oliveira Planeta Boi">
+        <img src="assets/img/units/posto_planetaboi.webp" onerror="this.onerror=null;this.src='assets/img/units/posto_planetaboi.jpg'" class="promo-media-img" alt="Posto Oliveira Planeta Boi" loading="lazy">
         <div class="promo-overlay">
           <span class="promo-badge purple">POSTO 24 HORAS</span>
           <h3 class="promo-title">Posto Oliveira Planeta Boi — 24 Horas</h3>
@@ -947,7 +947,7 @@ function renderUnidades() {
       ${stations.map(st => `
         <article class="station-card">
           <div class="station-img-banner">
-            <img src="${st.image}" alt="${esc(st.name)}">
+            <img src="${st.image}" alt="${esc(st.name)}" onerror="this.onerror=null;this.src='${st.image.replace('.webp', '.jpg')}'" loading="lazy">
             <span class="station-status-pill ${st.isHeadquarters ? 'purple' : ''}">${esc(st.hours)}</span>
           </div>
           <div class="station-info">
