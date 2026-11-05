@@ -7,11 +7,17 @@
       "config": {
         "includeFiles": [
           "assets/**",
+          "data/**",
+          "scripts/**",
           "site/**",
           "*.html",
           "*.png",
+          "*.jpg",
+          "*.jpeg",
+          "*.webp",
           "*.ico",
-          "*.json"
+          "*.json",
+          "*.webmanifest"
         ]
       }
     }
