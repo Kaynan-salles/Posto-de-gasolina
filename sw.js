@@ -6,7 +6,7 @@
  * em caches públicos. Apenas assets estáticos da casca da aplicação (App Shell).
  */
 
-const CACHE_NAME = 'go-pwa-v1.3.0';
+const CACHE_NAME = 'go-pwa-v1.3.4';
 
 const APP_SHELL_ASSETS = [
   '/',
@@ -73,10 +73,10 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Para navegações (páginas HTML) -> Network First com fallback para Cache
+  // Para navegações (páginas HTML) -> Network First sem cache HTTP obsoleto, com fallback offline
   if (req.mode === 'navigate') {
     event.respondWith(
-      fetch(req).catch(() => {
+      fetch(req, { cache: 'no-store' }).catch(() => {
         if (url.pathname.startsWith('/instalar')) {
           return caches.match('/instalar.html') || caches.match('/instalar');
         }

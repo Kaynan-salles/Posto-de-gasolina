@@ -2607,7 +2607,7 @@ function openAbastecerModal(preselectedStation = '') {
         <div class="mini-card-bottom">
           <div>
             <div class="mini-card-holder">${esc(state.name)}</div>
-            <small style="font-size:10px;opacity:0.85">${esc(state.vehicle)} (${esc(state.plate)})</small>
+            <small style="font-size:10px;opacity:0.85">${state.vehicle && state.plate ? `${esc(state.vehicle)} (${esc(state.plate)})` : esc(state.vehicle || (state.plate ? `Placa ${state.plate}` : 'Cartão Fidelidade Oficial'))}</small>
           </div>
           <span class="mini-card-status">● CLIENTE ATIVO</span>
         </div>
@@ -3911,11 +3911,11 @@ function openEditProfile() {
       </div>
       <div class="form-group">
         <label>Veículo Principal</label>
-        <input name="vehicle" required value="${esc(state.vehicle)}">
+        <input name="vehicle" value="${esc(state.vehicle)}" placeholder="opcional">
       </div>
       <div class="form-group">
         <label>Placa</label>
-        <input name="plate" required value="${esc(state.plate)}" style="text-transform:uppercase">
+        <input name="plate" class="plate-input" value="${esc(state.plate)}" placeholder="opcional" maxlength="8">
       </div>
       <button type="submit" class="btn btn-primary">Salvar Alterações</button>
     </form>
@@ -4342,13 +4342,14 @@ function openRegisterModal() {
         <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:10px">
           <div class="reg-field-group">
             <label for="reg-vehicle">Modelo do Veículo</label>
-            <input type="text" id="reg-vehicle" name="vehicle" class="reg-input" placeholder="Ex.: Onix 1.0">
+            <input type="text" id="reg-vehicle" name="vehicle" class="reg-input" placeholder="opcional">
           </div>
           <div class="reg-field-group">
             <label for="reg-plate">Placa</label>
-            <input type="text" id="reg-plate" name="plate" class="reg-input" placeholder="ABC-1234" maxlength="8" style="text-transform:uppercase">
+            <input type="text" id="reg-plate" name="plate" class="reg-input plate-input" placeholder="opcional" maxlength="8">
           </div>
         </div>
+        <div style="font-size:11.5px;color:#64748b;margin-top:4px;margin-bottom:8px">Caso não lembre agora, pode deixar em branco e preencher depois.</div>
 
         <div id="reg-error-msg" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#dc2626;padding:8px 12px;border-radius:10px;font-size:11.5px"></div>
 
@@ -4390,8 +4391,8 @@ function handleRegisterSubmit(e) {
   const cpf = form.cpf.value.trim();
   const phone = form.phone.value.trim();
   const email = form.email.value.trim();
-  const vehicle = form.vehicle.value.trim() || 'Veículo Passeio';
-  const plate = (form.plate.value.trim() || 'PLACA-GO').toUpperCase();
+  const vehicle = form.vehicle.value.trim();
+  const plate = form.plate.value.trim().toUpperCase();
 
   const ctx = state.pendingRegistrationContext || {};
 
@@ -5574,13 +5575,15 @@ async function loadCustomerDataFromServer() {
       const data = await res.json();
       if (data.ok && data.customer) {
         const c = data.customer;
+        // Nunca sobrescrever um cliente recém-cadastrado com o cliente de demonstração CLI-0824
+        if (c.id && c.id !== cid) return;
         state.name = c.name || state.name;
         state.cardNumber = c.cardNumber || state.cardNumber;
         state.balance = Number(c.balance);
         state.points = Number(c.points);
         state.cashbackUsed = Number(c.cashbackUsed || state.cashbackUsed || 0);
-        state.vehicle = c.vehicle || state.vehicle;
-        state.plate = c.plate || state.plate;
+        if (c.vehicle !== undefined) state.vehicle = c.vehicle;
+        if (c.plate !== undefined) state.plate = c.plate;
         if (Array.isArray(c.fills) && c.fills.length > 0) {
           state.fills = c.fills;
         }

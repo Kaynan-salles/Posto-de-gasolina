@@ -96,12 +96,24 @@ const ROUTE_ALIASES = {
   '/site/': '/site/index.html'
 };
 
+function getCacheControl(contentType, isSw = false) {
+  if (
+    isSw ||
+    contentType.startsWith('text/html') ||
+    contentType.startsWith('text/css') ||
+    contentType.startsWith('application/javascript')
+  ) {
+    return 'no-cache, no-store, must-revalidate';
+  }
+  return 'public, max-age=3600';
+}
+
 function sendCachedResponse(req, res, fileObj, isSw = false) {
   const acceptEncoding = req.headers['accept-encoding'] || '';
   const headers = {
     'Content-Type': fileObj.type,
     'Access-Control-Allow-Origin': '*',
-    'Cache-Control': isSw ? 'no-cache, no-store, must-revalidate' : 'public, max-age=3600',
+    'Cache-Control': getCacheControl(fileObj.type, isSw),
     'Vary': 'Accept-Encoding'
   };
   if (isSw) {
@@ -236,6 +248,7 @@ const server = http.createServer(async (req, res) => {
 function serveDiskFile(req, res, filePath) {
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+  const isSw = path.basename(filePath) === 'sw.js';
 
   fs.readFile(filePath, (err, content) => {
     if (err) {
@@ -246,8 +259,12 @@ function serveDiskFile(req, res, filePath) {
     const headers = {
       'Content-Type': contentType,
       'Access-Control-Allow-Origin': '*',
-      'Cache-Control': 'public, max-age=3600'
+      'Cache-Control': getCacheControl(contentType, isSw),
+      'Vary': 'Accept-Encoding'
     };
+    if (isSw) {
+      headers['Service-Worker-Allowed'] = '/';
+    }
 
     if (acceptEncoding.includes('gzip')) {
       zlib.gzip(content, (zErr, gzipped) => {
